@@ -1,0 +1,10 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+
+// Theme color variations
+@each $name, $color in vars.$theme-colors {
+  [data-theme="#{$name}"] {
+    --primary: #{$color};
+    --ring: #{$color};
+  }
+}

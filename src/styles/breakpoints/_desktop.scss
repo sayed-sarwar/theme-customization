@@ -1,0 +1,33 @@
+@use "../abstracts/mixins" as mix;
+
+// Medium devices (md: 768px and up)
+@include mix.breakpoint(md) {
+  .container {
+    max-width: 768px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .text-responsive {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  
+  // Tailwind-like utilities
+  .md\:block { display: block; }
+  .md\:hidden { display: none; }
+  .md\:flex { display: flex; }
+  .md\:grid { display: grid; }
+  .md\:w-1\/2 { width: 50%; }
+  .md\:w-1\/3 { width: 33.333333%; }
+}

@@ -1,0 +1,77 @@
+{
+  "tabs": [
+    {
+      "key": "default",
+      "label": "Default",
+      "fields": [
+        {
+          "id": "appearance",
+          "label": "Appearance",
+          "type": "select",
+          "value": "Light",
+          "options": ["Light", "Dark", "System"]
+        },
+        {
+          "id": "densityTheme",
+          "label": "Density Theme",
+          "type": "select",
+          "value": "Standard",
+          "options": ["Compact", "Standard", "Comfortable"]
+        },
+        {
+          "id": "accent",
+          "label": "Accent",
+          "type": "select",
+          "value": "Professional",
+          "options": ["Professional", "Cool"]
+        },
+        {
+          "id": "accentColor",
+          "label": "Accent Color",
+          "type": "select",
+          "value": "Green",
+          "options": ["Green", "Blue", "Red", "Purple"]
+        }
+      ]
+    },
+    {
+      "key": "accessible",
+      "label": "Accessible",
+      "fields": [
+        {
+          "id": "appearance",
+          "label": "Appearance",
+          "type": "select",
+          "value": "Light",
+          "options": ["Light", "Dark", "System"]
+        },
+        {
+          "id": "densityTheme",
+          "label": "Density Theme",
+          "type": "select",
+          "value": "Standard",
+          "options": ["Compact", "Standard", "Comfortable"]
+        },
+        {
+          "id": "typus",
+          "label": "Typus",
+          "type": "select",
+          "value": "Dekorampus",
+          "options": ["Dekorampus", "Classic", "Readable"]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "button",
+      "label": "Cancel",
+      "variant": "secondary"
+    },
+    {
+      "type": "button",
+      "label": "Apply",
+      "variant": "primary"
+    }
+  ]
+}

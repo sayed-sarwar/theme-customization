@@ -1,0 +1,142 @@
+{
+  "title": "Chart of Accounts",
+  "display": "table",
+  "actionButtons": {
+    "primary": {
+      "label": "Add New",
+      "icon": "plus",
+      "type": "primary",
+      "action": "add_new_record",
+      "url": "/chart-of-accounts/new"
+    },
+    "secondary": [
+      {
+        "label": "Import",
+        "icon": "upload",
+        "type": "secondary",
+        "action": "import_file",
+        "url": "/chart-of-accounts/import"
+      },
+      {
+        "label": "Export",
+        "icon": "download",
+        "type": "secondary",
+        "action": "export_file",
+        "url": "/chart-of-accounts/custom-export"
+      }
+    ]
+  },
+  "tabs": [
+    {
+      "title": "setup",
+      "company": "Master Builder",
+
+      "accountDetails": {
+        "accountCode": "102344131",
+        "accountName": "Payable",
+        "accountType": "Asset",
+        "subAccount": "Expenses",
+        "status": "Paid",
+        "description": "Accounts payable are essential for managing your finances and track of your transactions.",
+        "currency": "USD",
+        "costCenter": "HR"
+      },
+      "qualityAndDataRuleViolations": [
+        {
+          "date": "March 15, 2025",
+          "invoiceType": "Invoice Type B",
+          "name": "Liam Johnson",
+          "customer": "eBay",
+          "value": "$75",
+          "status": "Pending"
+        },
+        {
+          "date": "March 18, 2025",
+          "invoiceType": "Invoice Type C",
+          "name": "Olivia Brown",
+          "customer": "Etsy",
+          "value": "$30",
+          "status": "Paid"
+        },
+        {
+          "date": "March 20, 2025",
+          "invoiceType": "Invoice Type A",
+          "name": "Emma Wilson",
+          "customer": "Shopify",
+          "value": "$50",
+          "status": "Failed"
+        },
+        {
+          "date": "March 25, 2025",
+          "invoiceType": "Invoice Type D",
+          "name": "Ava Davis",
+          "customer": "Walmart",
+          "value": "$200",
+          "status": "Paid"
+        },
+        {
+          "date": "March 28, 2025",
+          "invoiceType": "Invoice Type E",
+          "name": "Noah Garcia",
+          "customer": "Best Buy",
+          "value": "$120",
+          "status": "Pending"
+        },
+        {
+          "date": "March 30, 2025",
+          "invoiceType": "Invoice Type A",
+          "name": "Sophia Martinez",
+          "customer": "Target",
+          "value": "$90",
+          "status": "Paid"
+        },
+        {
+          "date": "April 02, 2025",
+          "invoiceType": "Invoice Type C",
+          "name": "Jackson Lee",
+          "customer": "Zalando",
+          "value": "$60",
+          "status": "Failed"
+        },
+        {
+          "date": "April 05, 2025",
+          "invoiceType": "Invoice Type B",
+          "name": "Isabella Clark",
+          "customer": "AliExpress",
+          "value": "$35",
+          "status": "Paid"
+        },
+        {
+          "date": "April 10, 2025",
+          "invoiceType": "Invoice Type D",
+          "name": "Liam Rodriguez",
+          "customer": "Newegg",
+          "value": "$150",
+          "status": "Pending"
+        },
+        {
+          "date": "April 12, 2025",
+          "invoiceType": "Invoice Type E",
+          "name": "Mia Lewis",
+          "customer": "Wayfair",
+          "value": "$80",
+          "status": "Paid"
+        }
+      ]
+    },
+
+    {
+      "title": "multiCompany",
+      "enabled": false,
+      "companies": []
+    },
+
+    {
+      "enabled": false,
+      "title": "multiCurrency",
+      "baseCurrency": "",
+      "supportedCurrencies": [],
+      "exchangeRateRules": []
+    }
+  ]
+}

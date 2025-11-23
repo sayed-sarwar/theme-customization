@@ -1,0 +1,30 @@
+{
+  "display": "Tab",
+  "type": "subpage",
+  "TabMenu": [
+    {
+      "label": "Setup",
+      "id": "setup",
+      "url": "/accounting/journal-entry/Setup",
+      "active": true,
+      "description": "Manage your chart of Setup",
+      "value": "setup"
+    },
+    {
+      "label": "Multi-Company",
+      "id": "multicompany",
+      "url": "/accounting/journal-entry/Multi-Company",
+      "active": false,
+      "description": "Manage your chart of Multi-Company",
+      "value": "multicompany"
+    },
+    {
+      "label": "Posting Rule",
+      "id": "postingrule",
+      "url": "/accounting/journal-entry/Posting-rule",
+      "active": false,
+      "description": "Manage your chart of Posting Rule",
+      "value": "postingrule"
+    }
+  ]
+}

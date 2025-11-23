@@ -1,0 +1,22 @@
+[
+  {
+    "type": "button",
+    "label": "Add New",
+    "color": "green",
+    "action": "add_main",
+    "dropdown": [
+      {
+        "label": "Add Customer",
+        "action": "add_customer"
+      },
+      {
+        "label": "Add Supplier",
+        "action": "add_supplier"
+      },
+      {
+        "label": "Add Product",
+        "action": "add_product"
+      }
+    ]
+  }
+]

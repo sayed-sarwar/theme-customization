@@ -1,0 +1,1136 @@
+{
+  "name": "All Apps",
+  "children": [
+    {
+      "name": "All Apps",
+      "description": "All Apps",
+      "iconLink": "fa fa-archive",
+      "icon": true,
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Accounting",
+          "iconLink": "fa fa-archive",
+          "path": "/accounting",
+          "icon": true,
+          "submenu": [
+            {
+              "name": "General leager ",
+              "path": "/accounting/Generalleager",
+              "item": [
+                {
+                  "name": "Chart of Accounts",
+                  "value": "chartofaccounts",
+                  "path": "/accounting/chart-of-accounts",
+                  "active": true,
+                  "description": "Manage your chart of Accounts",
+                  "template": "templatetwo",
+                  "subItems": {
+                    "display": "Tab",
+                    "TabMenu": [
+                      {
+                        "name": "Setup",
+                        "path": "/accounting/chart-of-accounts/Setup",
+                        "active": true,
+                        "description": "Manage your chart of Setup",
+                        "value": "setup",
+                        "sub_sub_Items": {
+                          "display": "Accordion",
+                          "Accordionitem": [
+                            {
+                              "name": "Company 01",
+                              "active": true,
+                              "display": "list",
+                              "data": [
+                                {
+                                  "name": "Account ID / Code",
+                                  "active": 102344131,
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "Accounts payable are essential for managing your finances and keeping track of your transactions. ",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Company 02",
+                              "active": true,
+                              "display": "list",
+                              "data": [
+                                {
+                                  "name": "Account ID / Code",
+                                  "active": "102344131",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "Multi-Company",
+                        "path": "/accounting/chart-of-accounts/Multi-Company",
+                        "active": false,
+                        "description": "Manage your chart of Multi-Company",
+                        "value": "multicompany"
+                      },
+                      {
+                        "name": "Posting Rule",
+                        "path": "/accounting/chart-of-accounts/Posting-rule",
+                        "active": false,
+                        "description": "Manage your chart of Posting Rule",
+                        "value": "postingrule"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Journals",
+                  "value": "journals",
+                  "path": "/accounting/journals",
+                  "active": false,
+                  "description": "Manage your chart of Journals",
+                  "template": "templateone",
+                  "data": [
+                    {
+                      "id": "m5gr84i9",
+                      "amount": 316,
+                      "status": "success",
+                      "email": "ken99@example.com"
+                    },
+                    {
+                      "id": "3u1reuv4",
+                      "amount": 242,
+                      "status": "success",
+                      "email": "Abe45@example.com"
+                    },
+                    {
+                      "id": "derv1ws0",
+                      "amount": 837,
+                      "status": "processing",
+                      "email": "Monserrat44@example.com"
+                    },
+                    {
+                      "id": "5kma53ae",
+                      "amount": 874,
+                      "status": "success",
+                      "email": "Silas22@example.com"
+                    },
+                    {
+                      "id": "bhqecj4p",
+                      "amount": 721,
+                      "status": "failed",
+                      "email": "carmella@example.com"
+                    }
+                  ]
+                },
+                {
+                  "name": "Transactions",
+                  "value": "transactions",
+                  "path": "/accounting/transactions",
+                  "active": false,
+                  "description": "Manage your chart of Transactions",
+                  "template": "templatetwo",
+                  "subItems": {
+                    "display": "Tab",
+                    "TabMenu": [
+                      {
+                        "name": "Setup",
+                        "path": "/accounting/chart-of-accounts/Setup",
+                        "active": true,
+                        "description": "Manage your chart of Setup",
+                        "value": "setup",
+                        "sub_sub_Items": {
+                          "display": "Accordion",
+                          "Accordionitem": [
+                            {
+                              "name": "Company 01",
+                              "active": true,
+                              "display": "list",
+                              "data": [
+                                {
+                                  "name": "Account ID / Code",
+                                  "value": 102344131,
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Company 02",
+                              "active": true,
+                              "display": "list",
+                              "data": [
+                                {
+                                  "name": "Account ID / Code",
+                                  "value": 102344131,
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Parent Account",
+                                  "active": "USD",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Tags",
+                                  "active": "Builders",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Status",
+                                  "active": "Active",
+                                  "editable": true
+                                },
+                                {
+                                  "name": "Account Type / Category",
+                                  "active": "Premium",
+                                  "editable": true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "Multi-Company",
+                        "path": "/accounting/chart-of-accounts/Multi-Company",
+                        "active": false,
+                        "description": "Manage your chart of Multi-Company",
+                        "value": "multicompany"
+                      },
+                      {
+                        "name": "Posting Rule",
+                        "path": "/accounting/chart-of-accounts/Posting-rule",
+                        "active": false,
+                        "description": "Manage your chart of Posting Rule",
+                        "value": "postingrule"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "AccountPayable",
+              "path": "/accounting/AccountPayable"
+            },
+
+            {
+              "name": "AccountReceivable",
+              "path": "/accounting/AccountReceivable"
+            },
+            {
+              "name": "cash and bank",
+              "path": "/accounting/cashandbank"
+            }
+          ]
+        },
+        {
+          "name": "HR",
+          "iconLink": "fa fa-archive",
+          "icon": true,
+          "path": "/hr",
+          "item": [
+            {
+              "name": "Employee Management",
+              "value": "employeemanagement",
+              "path": "/accounting/employeemanagement",
+              "active": true,
+              "description": "Manage your Employee Management",
+              "template": "templatetwo",
+              "subItems": {
+                "display": "Tab",
+                "TabMenu": [
+                  {
+                    "name": "Payslip",
+                    "path": "/accounting/chart-of-accounts/Payslip",
+                    "active": true,
+                    "description": "Manage your chart of Payslip",
+                    "value": "Payslip",
+                    "sub_sub_Items": {
+                      "display": "Accordion",
+                      "Accordionitem": [
+                        {
+                          "name": "Company 01",
+                          "active": true,
+                          "display": "list",
+                          "data": [
+                            {
+                              "name": "Account ID / Code",
+                              "active": 102344131,
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "Accounts payable are essential for managing your finances and keeping track of your transactions. ",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Company 02",
+                          "active": true,
+                          "display": "list",
+                          "data": [
+                            {
+                              "name": "Account ID / Code",
+                              "active": "102344131",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Tax",
+                    "path": "/accounting/chart-of-accounts/Tax",
+                    "active": false,
+                    "description": "Manage your chart of Tax",
+                    "value": "Tax"
+                  },
+                  {
+                    "name": "Job",
+                    "path": "/accounting/chart-of-accounts/Job",
+                    "active": false,
+                    "description": "Manage your chart of Job",
+                    "value": "Job"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "administration",
+              "value": "administration",
+              "path": "/accounting/administration",
+              "active": false,
+              "description": "Manage your chart of administration",
+              "template": "templateone",
+              "data": [
+                {
+                  "id": "m5gr84i9",
+                  "amount": 316,
+                  "status": "success",
+                  "email": "ken99@example.com"
+                },
+                {
+                  "id": "3u1reuv4",
+                  "amount": 242,
+                  "status": "success",
+                  "email": "Abe45@example.com"
+                },
+                {
+                  "id": "derv1ws0",
+                  "amount": 837,
+                  "status": "processing",
+                  "email": "Monserrat44@example.com"
+                },
+                {
+                  "id": "5kma53ae",
+                  "amount": 874,
+                  "status": "success",
+                  "email": "Silas22@example.com"
+                },
+                {
+                  "id": "bhqecj4p",
+                  "amount": 721,
+                  "status": "failed",
+                  "email": "carmella@example.com"
+                }
+              ]
+            },
+            {
+              "name": "Recruitment",
+              "value": "Recruitment",
+              "path": "/accounting/Recruitment",
+              "active": false,
+              "description": "Manage your chart of Recruitment",
+              "template": "templatetwo",
+              "subItems": {
+                "display": "Tab",
+                "TabMenu": [
+                  {
+                    "name": "Setup",
+                    "path": "/accounting/chart-of-accounts/Setup",
+                    "active": true,
+                    "description": "Manage your chart of Setup",
+                    "value": "setup",
+                    "sub_sub_Items": {
+                      "display": "Accordion",
+                      "Accordionitem": [
+                        {
+                          "name": "Company 01",
+                          "active": true,
+                          "display": "list",
+                          "data": [
+                            {
+                              "name": "Account ID / Code",
+                              "value": 102344131,
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Company 02",
+                          "active": true,
+                          "display": "list",
+                          "data": [
+                            {
+                              "name": "Account ID / Code",
+                              "value": 102344131,
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Multi-Company",
+                    "path": "/accounting/chart-of-accounts/Multi-Company",
+                    "active": false,
+                    "description": "Manage your chart of Multi-Company",
+                    "value": "multicompany"
+                  },
+                  {
+                    "name": "Posting Rule",
+                    "path": "/accounting/chart-of-accounts/Posting-rule",
+                    "active": false,
+                    "description": "Manage your chart of Posting Rule",
+                    "value": "postingrule"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CRM app",
+          "description": "CRM app",
+          "iconLink": "fa fa-archive",
+          "icon": true,
+          "path": "/crm",
+          "item": [
+            {
+              "name": "Journal Entry",
+              "value": "Journalentry",
+              "path": "/accounting/Journalentry",
+              "active": true,
+              "description": "Manage your Journal Entry",
+              "template": "templatetwo",
+              "subItems": {
+                "display": "Tab",
+                "TabMenu": [
+                  {
+                    "name": "Setup",
+                    "path": "/accounting/chart-of-accounts/Setup",
+                    "active": true,
+                    "description": "Manage your chart of Setup",
+                    "value": "setup",
+                    "sub_sub_Items": {
+                      "display": "Accordion",
+                      "Accordionitem": [
+                        {
+                          "name": "Company 01",
+                          "active": true,
+                          "display": "list",
+                          "data": [
+                            {
+                              "name": "Account ID / Code",
+                              "active": 102344131,
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Company 02",
+                          "active": true,
+                          "display": "list",
+                          "data": [
+                            {
+                              "name": "Account ID / Code",
+                              "active": 102344131,
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            },
+                            {
+                              "name": "Parent Account",
+                              "active": "USD",
+                              "editable": true
+                            },
+                            {
+                              "name": "Tags",
+                              "active": "Builders",
+                              "editable": true
+                            },
+                            {
+                              "name": "Status",
+                              "active": "Active",
+                              "editable": true
+                            },
+                            {
+                              "name": "Account Type / Category",
+                              "active": "Premium",
+                              "editable": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "Multi-Company",
+                    "path": "/accounting/chart-of-accounts/Multi-Company",
+                    "active": false,
+                    "description": "Manage your chart of Multi-Company",
+                    "value": "multicompany"
+                  },
+                  {
+                    "name": "Posting Rule",
+                    "path": "/accounting/chart-of-accounts/Posting-rule",
+                    "active": false,
+                    "description": "Manage your chart of Posting Rule",
+                    "value": "postingrule"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Journals",
+              "value": "journals",
+              "path": "/accounting/journals",
+              "active": false,
+              "description": "Manage your chart of Journals",
+              "template": "templateone",
+              "data": [
+                {
+                  "id": "m5gr84i9",
+                  "amount": 316,
+                  "status": "INVOICE NO",
+                  "email": "ken99@example.com"
+                },
+                {
+                  "id": "3u1reuv4",
+                  "amount": 242,
+                  "status": "success",
+                  "email": "Abe45@example.com"
+                },
+                {
+                  "id": "derv1ws0",
+                  "amount": 837,
+                  "status": "processing",
+                  "email": "Monserrat44@example.com"
+                },
+                {
+                  "id": "5kma53ae",
+                  "amount": 874,
+                  "status": "success",
+                  "email": "Silas22@example.com"
+                },
+                {
+                  "id": "bhqecj4p",
+                  "amount": 721,
+                  "status": "failed",
+                  "email": "carmella@example.com"
+                }
+              ]
+            },
+            {
+              "name": "Transactions",
+              "value": "transactions",
+              "path": "/accounting/transactions",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "My custom app",
+          "description": "My custom app",
+          "iconLink": "fa fa-archive",
+          "icon": true,
+          "path": "/customappp",
+          "item": [
+            {
+              "name": "Journal Entry",
+              "value": "Journalentry",
+              "path": "/accounting/Journalentry",
+              "active": true,
+              "description": "My custom app",
+              "template": "templatecustom",
+              "subItems": [
+                {
+                  "display": "section",
+                  "name": "Company 01",
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "Account ID / Code",
+                      "active": 102344131,
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    }
+                  ]
+                },
+                {
+                  "display": "section",
+                  "name": "Company 01",
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "Account ID / Code",
+                      "active": 102344131,
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "name": "Transactions",
+              "value": "transactions",
+              "path": "/accounting/transactions",
+              "active": false,
+              "template": "templatecustom",
+              "subItems": [
+                {
+                  "display": "Accordion",
+                  "name": "Company 01",
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "Account ID / Code",
+                      "active": 102344131,
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    }
+                  ]
+                },
+                {
+                  "display": "Accordion",
+                  "name": "Company 01",
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "Account ID / Code",
+                      "active": 102344131,
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    },
+                    {
+                      "name": "Parent Account",
+                      "active": "USD",
+                      "editable": true
+                    },
+                    {
+                      "name": "Tags",
+                      "active": "Builders",
+                      "editable": true
+                    },
+                    {
+                      "name": "Status",
+                      "active": "Active",
+                      "editable": true
+                    },
+                    {
+                      "name": "Account Type / Category",
+                      "active": "Premium",
+                      "editable": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

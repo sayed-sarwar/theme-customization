@@ -1,0 +1,143 @@
+{
+  "name": "Mukut Solutions",
+  "navigation": [
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "icon": "LayoutDashboard",
+      "url": "/dashboard",
+      "type": "Dashboard",
+      "isPrivate": true
+    },
+    {
+      "id": "all-apps",
+      "label": "Menu",
+      "description": "Menu",
+      "icon": "Archive",
+      "hasChildren": true,
+      "children": [
+        {
+          "id": "Home",
+          "label": "Home",
+          "icon": "GitBranch",
+          "url": "/Home"
+        },
+        {
+          "id": "sales",
+          "label": "Sales",
+          "icon": "ShoppingCart",
+          "url": "/sales"
+        },
+        {
+          "id": "receivable",
+          "label": "Receivable",
+          "icon": "FileText",
+          "url": "/receivable"
+        },
+        {
+          "id": "purchase",
+          "label": "Purchase",
+          "icon": "CreditCard",
+          "url": "/purchase"
+        },
+        {
+          "id": "cash-bank",
+          "label": "Cash n Bank",
+          "icon": "Banknote",
+          "url": "/cash-bank"
+        },
+        {
+          "id": "accounting",
+          "label": "Accounting",
+          "icon": "Calculator",
+          "isActive": true,
+          "isExpanded": true,
+          "children": [
+            {
+              "id": "General-leager",
+              "label": "General leager",
+              "icon": "Receipt",
+              "isActive": true,
+              "url": "/accounting/General-leager",
+              "page": [
+                {
+                  "id": "chart-accounts",
+                  "label": "Chart of Accounts",
+                  "icon": "Receipt",
+                  "isActive": true,
+                  "url": "/accounting/chart-of-accounts"
+                },
+                {
+                  "id": "journal-entry",
+                  "label": "Journal Entry",
+                  "icon": "FileText",
+                  "url": "/accounting/journal-entry"
+                },
+                {
+                  "id": "audit-compliance",
+                  "label": "Audit & Compliance",
+                  "icon": "FileText",
+                  "url": "/accounting/audit-compliance"
+                },
+                {
+                  "id": "vendor-invoice",
+                  "label": "Vendor Invoice",
+                  "icon": "Receipt",
+                  "url": "/accounting/vendor-invoice"
+                },
+                {
+                  "id": "invoice",
+                  "label": "Invoice Management",
+                  "icon": "FileText",
+                  "url": "/accounting/invoice"
+                }
+              ]
+            },
+            {
+              "id": "AccountPayable",
+              "label": "AccountPayable",
+              "icon": "FileText",
+              "url": "/accounting/AccountPayable"
+            },
+            {
+              "id": "AccountReceivable",
+              "label": "AccountReceivable",
+              "icon": "FileText",
+              "url": "/accounting/AccountReceivable"
+            },
+            {
+              "id": "cash and bank",
+              "label": "cash and bank",
+              "icon": "Receipt",
+              "url": "/accounting/cash-and-bank"
+            }
+          ]
+        },
+        {
+          "id": "taxes",
+          "label": "Taxes",
+          "icon": "Receipt",
+          "url": "/taxes"
+        },
+        {
+          "id": "expenses",
+          "label": "Expenses",
+          "icon": "DollarSign",
+          "url": "/expenses"
+        },
+        {
+          "id": "transactions",
+          "label": "Transactions",
+          "icon": "ArrowLeftRight",
+          "url": "/transactions"
+        },
+        {
+          "id": "more",
+          "label": "More",
+          "icon": "MoreHorizontal",
+          "url": "/more"
+        }
+      ]
+    }
+  ]
+}

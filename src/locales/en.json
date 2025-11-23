@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "INVALID_CREDENTIALS": "Invalid credentials",
+    "NETWORK_ERROR": "Network error occurred",
+    "UNAUTHORIZED": "Unauthorized access",
+    "SERVER_ERROR": "Server error occurred"
+  }
+}
