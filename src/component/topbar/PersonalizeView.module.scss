@@ -1,0 +1,159 @@
+// ============================================================================
+// PERSONALIZE VIEW - Component Scoped Styles
+// Uses Global Variables + Component-Specific Styling
+// ============================================================================
+
+@import "@/styles/global/variables.scss";
+@import "@/styles/global/mixins.scss";
+
+.container {
+  width: 380px;
+  background-color: var(--card);
+  border-radius: var(--border-radius);
+  box-shadow: map-get($shadows, lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  @include transition(all, base);
+}
+
+.header {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--border);
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--card-foreground);
+    margin: 0;
+  }
+}
+
+.tabs {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabsContainer {
+  display: flex;
+  gap: var(--spacing-xs);
+  background-color: var(--muted);
+  border-radius: calc(var(--border-radius) - 2px);
+  padding: 4px;
+}
+
+.tabButton {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size);
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  color: var(--muted-foreground);
+  border-radius: calc(var(--border-radius) - 2px);
+  cursor: pointer;
+  @include flex-center;
+  gap: var(--spacing-sm);
+  @include transition(all, base);
+
+  &:hover {
+    color: var(--foreground);
+  }
+
+  &.active {
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: map-get($shadows, sm);
+  }
+}
+
+.content {
+  padding: var(--spacing-lg);
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.settingGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.label {
+  font-size: var(--font-size);
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+.select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--input);
+  border-radius: var(--border-radius);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: var(--font-size);
+  cursor: pointer;
+  @include transition(all, base);
+
+  &:hover {
+    border-color: var(--ring);
+  }
+
+  &:focus {
+    @include focus-ring;
+  }
+}
+
+.actions {
+  padding: var(--spacing-lg);
+  background-color: var(--muted);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+}
+
+.button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  @include transition(all, base);
+
+  &.secondary {
+    background-color: var(--background);
+    color: var(--muted-foreground);
+    border: 1px solid var(--input);
+
+    &:hover {
+      background-color: var(--muted);
+      color: var(--foreground);
+    }
+  }
+
+  &.primary {
+    background-color: var(--accent-primary);
+    color: white;
+
+    &:hover {
+      background-color: var(--accent-primary-dark);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

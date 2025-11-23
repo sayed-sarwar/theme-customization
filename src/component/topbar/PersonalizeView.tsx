@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
-import { useThemeSettings } from "@/hooks/useThemeSettings.ts";
+import { useThemeSettings } from "@/hooks/useThemeSettings";
+import styles from "./PersonalizeView.module.scss";
 
 const data = {
   tabs: [
@@ -148,25 +149,19 @@ const PersonalizeView = () => {
   };
 
   return (
-    <div className="w-[380px] bg-card rounded-xl shadow-lg border border-border overflow-hidden">
-      {/* Header */}
-      <div className="px-6 py-4 border-b border-border">
-        <h2 className="text-xl font-semibold text-card-foreground">
-          Personalize view
-        </h2>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2>Personalize View</h2>
       </div>
 
-      {/* Tabs */}
-      <div className="px-6 py-3 border-b border-border">
-        <div className="flex space-x-1 bg-muted rounded-lg p-1">
+      <div className={styles.tabs}>
+        <div className={styles.tabsContainer}>
           {data.tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => handleTabChange(tab.key)}
-              className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                activeTab === tab.key
-                  ? "bg-background text-foreground shadow-sm"
-                  : "bg-transparent text-muted-foreground hover:text-foreground"
+              className={`${styles.tabButton} ${
+                activeTab === tab.key ? styles.active : ""
               }`}
             >
               {tab.label}
@@ -175,23 +170,18 @@ const PersonalizeView = () => {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="px-6 py-4 space-y-4">
+      <div className={styles.content}>
         {Object.keys(settings).map((key) => {
           const item = settings[key];
-
           return (
-            <div key={key} className="space-y-2">
-              <label className="block text-sm font-medium text-foreground">
-                {item.label}
-              </label>
-
+            <div key={key} className={styles.settingGroup}>
+              <label className={styles.label}>{item.label}</label>
               <select
-                className="w-full px-3 py-2 border border-input rounded-lg bg-background text-foreground focus:ring-2 focus:ring-ring focus:border-ring transition-colors duration-200"
+                className={styles.select}
                 value={item.value}
                 onChange={(e) => handleChange(key, e.target.value)}
               >
-                {item.options.map((opt: any) => (
+                {item.options.map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}
                   </option>
@@ -202,14 +192,13 @@ const PersonalizeView = () => {
         })}
       </div>
 
-      {/* Actions */}
-      <div className="px-6 py-4 bg-muted/50 border-t border-border flex justify-end space-x-3">
-        <button className="px-4 py-2 text-sm font-medium text-muted-foreground bg-background border border-input rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors duration-200">
+      <div className={styles.actions}>
+        <button className={`${styles.button} ${styles.secondary}`}>
           Cancel
         </button>
         <button
           onClick={handleApply}
-          className="px-4 py-2 text-sm font-medium text-primary-foreground rounded-lg bg-primary hover:bg-primary/90 transition-colors duration-200"
+          className={`${styles.button} ${styles.primary}`}
         >
           Apply
         </button>

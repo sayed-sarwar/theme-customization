@@ -1,0 +1,74 @@
+// ============================================================================
+// GLOBAL VARIABLES - Reusable Across All Components
+// ============================================================================
+
+// Color System
+$colors: (
+  green: (#10b981, #059669, #d1fae5, #ecfdf5),
+  blue: (#3b82f6, #2563eb, #dbeafe, #eff6ff),
+  red: (#ef4444, #dc2626, #fee2e2, #fef2f2),
+  purple: (#a855f7, #9333ea, #f3e8ff, #faf5ff),
+);
+
+// Spacing Scale
+$spacing: (
+  xs: 0.25rem,
+  sm: 0.5rem,
+  md: 1rem,
+  lg: 1.5rem,
+  xl: 2rem,
+  2xl: 2.5rem,
+  3xl: 3rem,
+);
+
+// Typography
+$typography: (
+  base-size: 1rem,
+  base-line-height: 1.5rem,
+  font-family: (
+    "system-ui",
+    "-apple-system",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    "Arial",
+    "sans-serif",
+  ),
+);
+
+// Border Radius
+$radius: (
+  sm: 0.25rem,
+  md: 0.5rem,
+  lg: 0.75rem,
+  xl: 1rem,
+  full: 9999px,
+);
+
+// Shadows
+$shadows: (
+  sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+);
+
+// Transitions
+$transitions: (
+  fast: 150ms,
+  base: 200ms,
+  slow: 300ms,
+);
+
+// Z-Index Scale
+$z-index: (
+  hide: -1,
+  base: 0,
+  dropdown: 1000,
+  sticky: 1020,
+  fixed: 1030,
+  modal-backdrop: 1040,
+  modal: 1050,
+  popover: 1060,
+  tooltip: 1070,
+);
