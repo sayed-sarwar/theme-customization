@@ -1,0 +1,39 @@
+@use "../../styles/global/mixins.scss" as *;
+
+.container {
+  background-color: var(--card);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+}
+
+.tabsList {
+  display: flex;
+  background-color: var(--muted);
+  padding: var(--padding-xs);
+  border-radius: var(--border-radius);
+}
+
+.tabButton {
+  flex: 1;
+  padding: var(--padding-sm) var(--padding-md);
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--border-radius) - 2px);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  @include transition(all, base);
+
+  &:hover {
+    color: var(--foreground);
+  }
+
+  &.active {
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+}
+
+.content {
+  padding: var(--padding-lg);
+}

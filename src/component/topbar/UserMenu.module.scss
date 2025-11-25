@@ -1,0 +1,72 @@
+@use "../../styles/global/mixins.scss" as *;
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.trigger {
+  @include flex-center;
+  gap: var(--padding-sm);
+  padding: var(--padding-sm);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--foreground);
+  cursor: pointer;
+  @include transition(all, base);
+
+  &:hover {
+    background-color: var(--muted);
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  color: white;
+  @include flex-center;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--padding-xs);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  padding: var(--padding-sm) var(--padding-md);
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  @include transition(all, base);
+
+  &:hover {
+    background-color: var(--muted);
+  }
+
+  &:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+  }
+
+  &:last-child {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+}

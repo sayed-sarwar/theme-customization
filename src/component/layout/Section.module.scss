@@ -1,0 +1,24 @@
+@use "../../styles/global/mixins.scss" as *;
+
+.section {
+  background-color: var(--card);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  padding: var(--padding-lg);
+  margin-bottom: var(--padding-md);
+}
+
+.header {
+  margin-bottom: var(--padding-md);
+  
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--card-foreground);
+    margin: 0;
+  }
+}
+
+.content {
+  color: var(--foreground);
+}

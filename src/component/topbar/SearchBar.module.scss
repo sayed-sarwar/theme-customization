@@ -1,0 +1,40 @@
+@use "../../styles/global/mixins.scss" as *;
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input {
+  width: 100%;
+  padding: var(--padding-sm) var(--padding-md);
+  padding-left: 2.5rem;
+  border: 1px solid var(--input);
+  border-radius: var(--border-radius);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: var(--font-size);
+  @include transition(all, base);
+
+  &::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  &:hover {
+    border-color: var(--ring);
+  }
+
+  &:focus {
+    @include focus-ring;
+  }
+}
+
+.icon {
+  position: absolute;
+  left: var(--padding-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted-foreground);
+  pointer-events: none;
+}

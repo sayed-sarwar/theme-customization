@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import { useThemeSettings } from "@/hooks/useThemeSettings";
 import styles from "./PersonalizeView.module.scss";
@@ -140,6 +140,8 @@ const PersonalizeView = () => {
         darkMode: themeConfig.appearance === "Dark",
         theme: themeConfig.accentColor?.toLowerCase() || "green",
         density: themeConfig.densityTheme?.toLowerCase() || "standard",
+        typus: themeConfig.typus?.toLowerCase() || "dekorampus",
+        accent: themeConfig.accent?.toLowerCase() || "professional",
       },
       timestamp: new Date().toISOString(),
     };

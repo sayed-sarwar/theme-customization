@@ -1,4 +1,4 @@
-@use "../abstracts/mixins" as mix;
+
 
 // Medium devices (md: 768px and up)
 @include mix.breakpoint(md) {

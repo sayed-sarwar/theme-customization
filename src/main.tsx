@@ -1,10 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import "./index.scss";
-import "./app.css";
-import "./styles/main.scss";
+import "./index.css";
 import App from "./App.tsx";
+import "../src/styles/main.scss";
 import { store } from "../store/store.ts";
 import { Provider } from "react-redux";
 // import Layout from "../src/layout/mainlayout.tsx";

@@ -1,11 +1,11 @@
 import SectionComponent from "../layout/section";
-import DynamicTabs from "../layout/dynamictabs";
-import Fieldcollection from "../display/fieldcollection";
-import DataTableDemo from "../display/table";
-import DataTableEntry from "../display/datatableentry";
-import DataTableView from "../display/datatableview";
+import DynamicTabs from "../layout/DynamicTabs";
+import Fieldcollection from "../display/FieldCollection";
+import DataTableDemo from "../display/Table";
+import DataTableEntry from "../display/DataTableEntry";
+import DataTableView from "../display/DataTableView";
 import List from "../display/ListItemEditIcon";
-import File from "../display/file";
+import File from "../display/File";
 
 const Componentviewer = (props: any) => {
   const getContent = (viewType: string, data: any) => {

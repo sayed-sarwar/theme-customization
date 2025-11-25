@@ -48,7 +48,7 @@
   }
 
   // Spacing
-  @each $key, $value in $spacing {
+  @each $key, $value in $padding {
     .p-#{$key} {
       padding: $value;
     }

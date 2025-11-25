@@ -2,31 +2,33 @@
 // GLOBAL MIXINS - Reusable Utility Functions
 // ============================================================================
 
+@use "sass:map";
+@use "./variables.scss" as vars;
+
 // Get color value
 @mixin get-color($name, $index: 1) {
-  @if map-has-key($colors, $name) {
-    color: nth(map-get($colors, $name), $index);
+  @if map.has-key(vars.$colors, $name) {
+    color: nth(map.get(vars.$colors, $name), $index);
   }
 }
 
 // Get background color
 @mixin bg-color($name, $index: 1) {
-  @if map-has-key($colors, $name) {
-    background-color: nth(map-get($colors, $name), $index);
+  @if map.has-key(vars.$colors, $name) {
+    background-color: nth(map.get(vars.$colors, $name), $index);
   }
-}
-
-// Spacing utility
-@mixin spacing($property, $value) {
-  @if map-has-key($spacing, $value) {
-    #{$property}: map-get($spacing, $value);
+  @else {
+    @warn "No color found for `#{$name}`.";
   }
 }
 
 // Smooth transition
 @mixin transition($property: all, $duration: base) {
-  @if map-has-key($transitions, $duration) {
-    transition: $property map-get($transitions, $duration) ease-in-out;
+  @if map.has-key(vars.$transitions, $duration) {
+    transition: $property map.get(vars.$transitions, $duration) ease-in-out;
+  }
+  @else {
+    @warn "No value found for transition duration `#{$duration}`.";
   }
 }
 
@@ -58,10 +60,13 @@
     2xl: 1536px,
   );
 
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
+  }
+  @else {
+    @warn "No value found for breakpoint `#{$breakpoint}`.";
   }
 }
 

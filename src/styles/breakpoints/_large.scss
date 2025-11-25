@@ -1,4 +1,4 @@
-@use "../abstracts/mixins" as mix;
+// @use "../abstracts/mixins" as mix;
 
 // Large devices (lg: 1024px and up)
 @include mix.breakpoint(lg) {

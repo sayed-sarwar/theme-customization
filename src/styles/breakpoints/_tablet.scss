@@ -1,7 +1,7 @@
-@use "../abstracts/mixins" as mix;
+// @use "../global/mixins.scss" as mix;
 
 // Small devices (sm: 640px and up)
-@include mix.breakpoint(sm) {
+@include mix.respond-to(sm) {
   .container {
     max-width: 640px;
     padding-left: 1.5rem;

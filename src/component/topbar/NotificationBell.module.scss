@@ -1,0 +1,33 @@
+@use "../../styles/global/mixins.scss" as *;
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.button {
+  padding: var(--padding-sm);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  @include transition(all, base);
+
+  &:hover {
+    background-color: var(--muted);
+    color: var(--foreground);
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+  border-radius: var(--border-radius);
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
