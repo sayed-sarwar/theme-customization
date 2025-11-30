@@ -1,5 +1,5 @@
 import DynamicTabs from "@/component/layout/DynamicTabs";
-import ViewPageLayout from "@/pages/ViewPageLayout";
+// import ViewPageLayout from "@/pages/ViewPageLayout";
 import Viewpagejson from "../staticjson/viewpagejson.json";
 import Section from "@/component/layout/section";
 const Viewpage = () => {
@@ -33,18 +33,18 @@ const Viewpage = () => {
   };
 
   return (
-    <ViewPageLayout
-      title={Viewpagejson.title}
-      primaryButton={Viewpagejson.actionButtons.primary}
-      secondaryButtons={Viewpagejson.actionButtons.secondary}
-      onAction={handleAction}
+    <div
+    // title={Viewpagejson.title}
+    // primaryButton={Viewpagejson.actionButtons.primary}
+    // secondaryButtons={Viewpagejson.actionButtons.secondary}
+    // onAction={handleAction}
     >
       {"section" === Viewpagejson?.display ? (
         <Section title={Viewpagejson.title} data={Viewpagejson} />
       ) : (
         <DynamicTabs tabs={Viewpagejson.tabs} />
       )}
-    </ViewPageLayout>
+    </div>
   );
 };
 
