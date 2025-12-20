@@ -2,6 +2,7 @@ import DynamicTabs from "@/component/layout/DynamicTabs";
 // import ViewPageLayout from "@/pages/ViewPageLayout";
 import Viewpagejson from "../staticjson/viewpagejson.json";
 import Section from "@/component/layout/section";
+import DataExample from "./DataExample";
 const Viewpage = () => {
   const handleAction = async (action: string, url: string) => {
     try {
@@ -34,10 +35,10 @@ const Viewpage = () => {
 
   return (
     <div
-    // title={Viewpagejson.title}
-    // primaryButton={Viewpagejson.actionButtons.primary}
-    // secondaryButtons={Viewpagejson.actionButtons.secondary}
-    // onAction={handleAction}
+      title={Viewpagejson.title}
+      primaryButton={Viewpagejson.actionButtons.primary}
+      secondaryButtons={Viewpagejson.actionButtons.secondary}
+      onAction={handleAction}
     >
       {"section" === Viewpagejson?.display ? (
         <Section title={Viewpagejson.title} data={Viewpagejson} />

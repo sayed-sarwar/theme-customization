@@ -13,10 +13,15 @@ import {
 import { useAuth } from "@/context/AuthContext";
 // import { useTheme } from "@/context/ThemeContext";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import PersonalizeView from "../component/topbar/PersonalizeView";
+import { ThemeLanguageDemo } from "@/components/ThemeLanguageDemo";
+import RoleSwitcher from "@/components/RoleSwitcher";
 
 function Topbar() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   // const { theme, setTheme } = useTheme();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showThemeDropdown, setShowThemeDropdown] = useState(false);
@@ -24,9 +29,12 @@ function Topbar() {
   const handleLogout = async () => {
     await logout();
     setShowDropdown(false);
+    window.location.href = '/login';
   };
   return (
-    <header className="bg-background border-b border-border">
+    <header className={`bg-background border-b border-border ${
+      location.pathname === '/entry' ? 'blur-sm pointer-events-none' : ''
+    }`}>
       <div className="max-w-9xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
@@ -49,7 +57,15 @@ function Topbar() {
               <Bookmark className="w-5 h-5" />
             </button>
 
-            <button className="text-muted-foreground hover:text-foreground transition-colors">
+            <button 
+              onClick={() => navigate('/sales/new', { state: { fromTopbar: true, from: location.pathname } })}
+              disabled={location.pathname === '/sales/new' || location.pathname.startsWith('/sales/edit')}
+              className={`transition-colors ${
+                location.pathname === '/sales/new' || location.pathname.startsWith('/sales/edit')
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <Plus className="w-5 h-5" />
             </button>
 
@@ -79,8 +95,13 @@ function Topbar() {
               )}
             </div>
 
+            <RoleSwitcher />
+            
             <button className="text-muted-foreground hover:text-foreground transition-colors">
               <Settings className="w-5 h-5" />
+            </button>
+            <button className="fixed top-0 text-muted-foreground hover:text-foreground transition-colors left-1/2">
+              <ThemeLanguageDemo />
             </button>
 
             <div className="relative">

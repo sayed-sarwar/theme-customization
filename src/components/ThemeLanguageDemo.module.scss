@@ -1,0 +1,46 @@
+.rtlAware {
+//   padding: var(--padding-lg);
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  margin: var(--padding-md);
+}
+
+.heading {
+  margin-bottom: var(--padding-md);
+}
+
+.languageSelectorWrapper {
+  margin-bottom: var(--padding-md);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--padding-sm);
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: var(--padding-sm) var(--padding-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+}
+
+.cancelButton {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+
+.info {
+  margin-top: var(--padding-md);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}

@@ -1,87 +1,49 @@
-// import { Routes, Route, Navigate } from "react-router-dom";
-// import type { Key } from "react";
-// import { generateRoutes } from "./generateRoutes";
-// import { PrivateRoute } from "@/pages/auth/PrivateRoute";
-// import { PublicRoute } from "@/pages/auth/PublicRoute";
-// // import { Login } from "@/pages/login";
-// // import { Unauthorized } from "@/pages/unauthorized";
-// // import { NotFound } from "@/pages/notFound";
-// import Layout from "@/layout/mainlayout";
-// import { useAuth } from "@/context/AuthContext";
-// // import data from "../../data1.json";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import Layout from "@/layout/MainLayout";
+import { Login } from "@/pages/Login";
+import Dashboard from "@/pages/Dashboard";
+import { NotFound } from "@/pages/NotFound";
+import { Unauthorized } from "@/pages/Unauthorized";
+import ProtectedRoute from "./ProtectedRoute";
+import RoleBasedPages from "./RoleBasedPages";
+import type { ReactNode } from "react";
 
-// const RootRedirect = () => {
-//   const { isAuthenticated, isLoading } = useAuth();
+const RootRoute = () => {
+  const { isAuthenticated, isLoading } = useAuth();
 
-//   if (isLoading) {
-//     return (
-//       <div className="flex items-center justify-center h-screen">
-//         Loading...
-//       </div>
-//     );
-//   }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-//   return isAuthenticated ? (
-//     <Navigate to="/dashboard" replace />
-//   ) : (
-//     <Navigate to="/login" replace />
-//   );
-// };
+  const renderProtectedRoute = (element: ReactNode) => (
+    <ProtectedRoute>
+      <Layout>{element}</Layout>
+    </ProtectedRoute>
+  );
 
-// export default function RootRoute() {
-//   const dynamicRoutes = generateRoutes(data);
+  return (
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          !isAuthenticated ? <Login /> : <Navigate to="/dashboard" replace />
+        }
+      />
+      <Route path="/unauthorized" element={<Unauthorized />} />
 
-//   return (
-//     <Routes>
-//       {/* Root Route Redirect */}
-//       <Route path="/" element={<RootRedirect />} />
+      <Route
+        path="/"
+        element={renderProtectedRoute(<Navigate to="/dashboard" replace />)}
+      />
 
-//       {/* Public Routes */}
-//       <Route
-//         path="/login"
-//         element={
-//           <PublicRoute restricted>
-//             <Login />
-//           </PublicRoute>
-//         }
-//       />
-//       <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="/dashboard" element={renderProtectedRoute(<Dashboard />)} />
 
-//       {/* Dynamic Routes */}
-//       {dynamicRoutes.map(
-//         (
-//           route: {
-//             component: any;
-//             path: string | undefined;
-//             menuItem?: any;
-//             isPrivate?: boolean;
-//           },
-//           i: Key | null | undefined
-//         ) => {
-//           const Component = route.component;
+      <Route path="/*" element={renderProtectedRoute(<RoleBasedPages />)} />
 
-//           const element = <Component menuItem={route.menuItem} />;
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
-//           return (
-//             <Route
-//               key={i}
-//               path={route.path}
-//               element={
-//                 route.isPrivate ? (
-//                   <PrivateRoute menuItem={route.menuItem}>
-//                     <Layout>{element}</Layout>
-//                   </PrivateRoute>
-//                 ) : (
-//                   <PublicRoute>{element}</PublicRoute>
-//                 )
-//               }
-//             />
-//           );
-//         }
-//       )}
-
-//       {/* Catch-all route for 404 */}
-//       <Route path="*" element={<NotFound />} />
-//     </Routes>
-//   );
-// }
+export default RootRoute;

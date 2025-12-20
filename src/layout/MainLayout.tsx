@@ -1,25 +1,27 @@
-// import { Outlet } from "react-router-dom";
-import TopBar from "./Topbar";
+import Topbar from "./Topbar";
 import LeftSidebar from "./Sidebar";
+import { useLocation } from "react-router-dom";
+import { Suspense } from "react";
 
 const Layout = (props: any) => {
+  const location = useLocation();
+  const hideSidebar = location.pathname === '/sales/new' || location.pathname.startsWith('/sales/edit');
+
   return (
-    <div className="flex h-screen bg-theme">
-      {/* Left Sidebar */}
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Bar */}
-        <TopBar />
-        <div className="flex-1 flex overflow-hidden">
-          <LeftSidebar />
-
-          {/* Page Content */}
-          <main className="flex-1 overflow-y-auto p-6">
-            {/* <Outlet /> */}
+    <div className="min-h-screen bg-gray-100">
+      <Topbar />
+      <div className="flex">
+        {!hideSidebar && <LeftSidebar />}
+        <main className="flex-1 p-6">
+          <Suspense fallback={
+            <div className="flex items-center justify-center h-64">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-2 text-gray-600">Loading...</span>
+            </div>
+          }>
             {props.children}
-          </main>
-        </div>
+          </Suspense>
+        </main>
       </div>
     </div>
   );

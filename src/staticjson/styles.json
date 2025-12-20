@@ -1,0 +1,18 @@
+{
+  "h1": {
+    "fontSize": "32px",
+    "fontWeight": "bold"
+  },
+  "h2": {
+    "fontSize": "24px",
+    "fontWeight": "600"
+  },
+  "h3": {
+    "fontSize": "20px",
+    "fontWeight": "500"
+  },
+  "p": {
+    "fontSize": "16px",
+    "fontWeight": "400"
+  }
+}

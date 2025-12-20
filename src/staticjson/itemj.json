@@ -1,0 +1,549 @@
+[
+  "All Apps",
+  [
+    [
+      "All Apps",
+      "All Apps",
+      "fa fa-archive",
+      true,
+      true,
+      [
+        [
+          "Accounting",
+          "fa fa-archive",
+          "/accounting",
+          true,
+          [
+            [
+              "General leager ",
+              "/accounting/Generalleager",
+              [
+                [
+                  "Chart of Accounts",
+                  "chartofaccounts",
+                  "/accounting/chart-of-accounts",
+                  true,
+                  "Manage your chart of Accounts",
+                  "templatetwo",
+                  [
+                    "Tab",
+                    [
+                      [
+                        "Setup",
+                        "/accounting/chart-of-accounts/Setup",
+                        true,
+                        "Manage your chart of Setup",
+                        "setup",
+                        [
+                          "Accordion",
+                          [
+                            [
+                              "Company 01",
+                              true,
+                              "list",
+                              [
+                                ["Account ID / Code", 102344131, true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true],
+                                [
+                                  "Parent Account",
+                                  "Accounts payable are essential for managing your finances and keeping track of your transactions. ",
+                                  true
+                                ],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true]
+                              ]
+                            ],
+                            [
+                              "Company 02",
+                              true,
+                              "list",
+                              [
+                                ["Account ID / Code", "102344131", true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        "Multi-Company",
+                        "/accounting/chart-of-accounts/Multi-Company",
+                        false,
+                        "Manage your chart of Multi-Company",
+                        "multicompany"
+                      ],
+                      [
+                        "Posting Rule",
+                        "/accounting/chart-of-accounts/Posting-rule",
+                        false,
+                        "Manage your chart of Posting Rule",
+                        "postingrule"
+                      ]
+                    ]
+                  ]
+                ],
+                [
+                  "Journals",
+                  "journals",
+                  "/accounting/journals",
+                  false,
+                  "Manage your chart of Journals",
+                  "templateone",
+                  [
+                    ["m5gr84i9", 316, "success", "ken99@example.com"],
+                    ["3u1reuv4", 242, "success", "Abe45@example.com"],
+                    ["derv1ws0", 837, "processing", "Monserrat44@example.com"],
+                    ["5kma53ae", 874, "success", "Silas22@example.com"],
+                    ["bhqecj4p", 721, "failed", "carmella@example.com"]
+                  ]
+                ],
+                [
+                  "Transactions",
+                  "transactions",
+                  "/accounting/transactions",
+                  false,
+                  "Manage your chart of Transactions",
+                  "templatetwo",
+                  [
+                    "Tab",
+                    [
+                      [
+                        "Setup",
+                        "/accounting/chart-of-accounts/Setup",
+                        true,
+                        "Manage your chart of Setup",
+                        "setup",
+                        [
+                          "Accordion",
+                          [
+                            [
+                              "Company 01",
+                              true,
+                              "list",
+                              [
+                                ["Account ID / Code", 102344131, true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true]
+                              ]
+                            ],
+                            [
+                              "Company 02",
+                              true,
+                              "list",
+                              [
+                                ["Account ID / Code", 102344131, true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true],
+                                ["Parent Account", "USD", true],
+                                ["Tags", "Builders", true],
+                                ["Status", "Active", true],
+                                ["Account Type / Category", "Premium", true]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        "Multi-Company",
+                        "/accounting/chart-of-accounts/Multi-Company",
+                        false,
+                        "Manage your chart of Multi-Company",
+                        "multicompany"
+                      ],
+                      [
+                        "Posting Rule",
+                        "/accounting/chart-of-accounts/Posting-rule",
+                        false,
+                        "Manage your chart of Posting Rule",
+                        "postingrule"
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ],
+            ["AccountPayable", "/accounting/AccountPayable"],
+            ["AccountReceivable", "/accounting/AccountReceivable"],
+            ["cash and bank", "/accounting/cashandbank"]
+          ]
+        ],
+        [
+          "HR",
+          "fa fa-archive",
+          true,
+          "/hr",
+          [
+            [
+              "Employee Management",
+              "employeemanagement",
+              "/accounting/employeemanagement",
+              true,
+              "Manage your Employee Management",
+              "templatetwo",
+              [
+                "Tab",
+                [
+                  [
+                    "Payslip",
+                    "/accounting/chart-of-accounts/Payslip",
+                    true,
+                    "Manage your chart of Payslip",
+                    "Payslip",
+                    [
+                      "Accordion",
+                      [
+                        [
+                          "Company 01",
+                          true,
+                          "list",
+                          [
+                            ["Account ID / Code", 102344131, true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true],
+                            [
+                              "Parent Account",
+                              "Accounts payable are essential for managing your finances and keeping track of your transactions. ",
+                              true
+                            ],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true]
+                          ]
+                        ],
+                        [
+                          "Company 02",
+                          true,
+                          "list",
+                          [
+                            ["Account ID / Code", "102344131", true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ],
+                  [
+                    "Tax",
+                    "/accounting/chart-of-accounts/Tax",
+                    false,
+                    "Manage your chart of Tax",
+                    "Tax"
+                  ],
+                  [
+                    "Job",
+                    "/accounting/chart-of-accounts/Job",
+                    false,
+                    "Manage your chart of Job",
+                    "Job"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "administration",
+              "administration",
+              "/accounting/administration",
+              false,
+              "Manage your chart of administration",
+              "templateone",
+              [
+                ["m5gr84i9", 316, "success", "ken99@example.com"],
+                ["3u1reuv4", 242, "success", "Abe45@example.com"],
+                ["derv1ws0", 837, "processing", "Monserrat44@example.com"],
+                ["5kma53ae", 874, "success", "Silas22@example.com"],
+                ["bhqecj4p", 721, "failed", "carmella@example.com"]
+              ]
+            ],
+            [
+              "Recruitment",
+              "Recruitment",
+              "/accounting/Recruitment",
+              false,
+              "Manage your chart of Recruitment",
+              "templatetwo",
+              [
+                "Tab",
+                [
+                  [
+                    "Setup",
+                    "/accounting/chart-of-accounts/Setup",
+                    true,
+                    "Manage your chart of Setup",
+                    "setup",
+                    [
+                      "Accordion",
+                      [
+                        [
+                          "Company 01",
+                          true,
+                          "list",
+                          [
+                            ["Account ID / Code", 102344131, true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true]
+                          ]
+                        ],
+                        [
+                          "Company 02",
+                          true,
+                          "list",
+                          [
+                            ["Account ID / Code", 102344131, true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ],
+                  [
+                    "Multi-Company",
+                    "/accounting/chart-of-accounts/Multi-Company",
+                    false,
+                    "Manage your chart of Multi-Company",
+                    "multicompany"
+                  ],
+                  [
+                    "Posting Rule",
+                    "/accounting/chart-of-accounts/Posting-rule",
+                    false,
+                    "Manage your chart of Posting Rule",
+                    "postingrule"
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "CRM app",
+          "CRM app",
+          "fa fa-archive",
+          true,
+          "/crm",
+          [
+            [
+              "Journal Entry",
+              "Journalentry",
+              "/accounting/Journalentry",
+              true,
+              "Manage your Journal Entry",
+              "templatetwo",
+              [
+                "Tab",
+                [
+                  [
+                    "Setup",
+                    "/accounting/chart-of-accounts/Setup",
+                    true,
+                    "Manage your chart of Setup",
+                    "setup",
+                    [
+                      "Accordion",
+                      [
+                        [
+                          "Company 01",
+                          true,
+                          "list",
+                          [
+                            ["Account ID / Code", 102344131, true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true]
+                          ]
+                        ],
+                        [
+                          "Company 02",
+                          true,
+                          "list",
+                          [
+                            ["Account ID / Code", 102344131, true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true],
+                            ["Parent Account", "USD", true],
+                            ["Tags", "Builders", true],
+                            ["Status", "Active", true],
+                            ["Account Type / Category", "Premium", true]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ],
+                  [
+                    "Multi-Company",
+                    "/accounting/chart-of-accounts/Multi-Company",
+                    false,
+                    "Manage your chart of Multi-Company",
+                    "multicompany"
+                  ],
+                  [
+                    "Posting Rule",
+                    "/accounting/chart-of-accounts/Posting-rule",
+                    false,
+                    "Manage your chart of Posting Rule",
+                    "postingrule"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "Journals",
+              "journals",
+              "/accounting/journals",
+              false,
+              "Manage your chart of Journals",
+              "templateone",
+              [
+                ["m5gr84i9", 316, "INVOICE NO", "ken99@example.com"],
+                ["3u1reuv4", 242, "success", "Abe45@example.com"],
+                ["derv1ws0", 837, "processing", "Monserrat44@example.com"],
+                ["5kma53ae", 874, "success", "Silas22@example.com"],
+                ["bhqecj4p", 721, "failed", "carmella@example.com"]
+              ]
+            ],
+            ["Transactions", "transactions", "/accounting/transactions", false]
+          ]
+        ],
+        [
+          "My custom app",
+          "My custom app",
+          "fa fa-archive",
+          true,
+          "/customappp",
+          [
+            [
+              "Journal Entry",
+              "Journalentry",
+              "/accounting/Journalentry",
+              true,
+              "My custom app",
+              "templatecustom",
+              [
+                [
+                  "section",
+                  "Company 01",
+                  true,
+                  [
+                    ["Account ID / Code", 102344131, true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true]
+                  ]
+                ],
+                [
+                  "section",
+                  "Company 01",
+                  true,
+                  [
+                    ["Account ID / Code", 102344131, true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true]
+                  ]
+                ]
+              ]
+            ],
+            [
+              "Transactions",
+              "transactions",
+              "/accounting/transactions",
+              false,
+              "templatecustom",
+              [
+                [
+                  "Accordion",
+                  "Company 01",
+                  true,
+                  [
+                    ["Account ID / Code", 102344131, true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true]
+                  ]
+                ],
+                [
+                  "Accordion",
+                  "Company 02",
+                  true,
+                  [
+                    ["Account ID / Code", 102344131, true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true],
+                    ["Parent Account", "USD", true],
+                    ["Tags", "Builders", true],
+                    ["Status", "Active", true],
+                    ["Account Type / Category", "Premium", true]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
+]

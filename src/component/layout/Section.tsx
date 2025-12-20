@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SubSection from "./subsection";
 import Componentviewer from "../componentselector/componentselector";
+import DataExample from "@/pages/DataExample";
 
 const Section = (props: any) => {
   console.log("Section props:", props);
@@ -20,6 +21,7 @@ const Section = (props: any) => {
         <div style={{ marginLeft: "20px", marginTop: "10px" }}>
           {/* <Componentviewer data={props.data} />
           <SubSection title="SubSection Example"></SubSection> */}
+          <DataExample />
         </div>
       )}
     </div>

@@ -13,8 +13,8 @@ interface DynamicTabsProps {
 
 const DynamicTabs = ({ tabs, children }: DynamicTabsProps) => {
   return (
-    <Tabs defaultValue="0" className="w-full">
-      <TabsList>
+    <Tabs defaultValue="0" className="w-full" style={{ direction: 'inherit' }}>
+      <TabsList style={{ direction: 'inherit' }}>
         {tabs.map((tab, index) => (
           <TabsTrigger key={index} value={index.toString()}>
             {tab.title}

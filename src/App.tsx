@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fetchData } from "../store/usermedata/usermedata";
 import { AuthProvider } from "./context/AuthContext";
-import Viewpage from "./pages/ViewPage";
-import Layout from "./layout/MainLayout";
+import { LanguageProvider } from "./context/LanguageContext";
+import RootRoute from "./routes/Route";
 
 const queryClient = new QueryClient();
 
@@ -17,14 +17,11 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <>
-          <Layout>
-            <Viewpage />
-          </Layout>
-          {/* <RootRoute /> */}
-        </>
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <RootRoute />
+        </AuthProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

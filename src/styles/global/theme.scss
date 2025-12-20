@@ -31,6 +31,12 @@
   --line-height: 1.5rem;
   --border-radius: 0.5rem;
 
+  // Text alignment (LTR default)
+  --text-align: left;
+  --text-align-opposite: right;
+  --flex-direction: row;
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
   // Other
   --ring: var(--accent-primary);
   --destructive: #ef4444;
@@ -156,6 +162,16 @@
   --font-size: 1.125rem;
   --line-height: 1.75rem;
   --border-radius: 0.75rem;
+}
+
+// ============================================================================
+// RTL LANGUAGE SUPPORT
+// ============================================================================
+
+:root[data-rtl="true"] {
+  --text-align: right;
+  --text-align-opposite: left;
+  --flex-direction: row-reverse;
 }
 
 // ============================================================================

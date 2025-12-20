@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useLanguage } from '../context/LanguageContext';
 
 interface ThemeConfig {
   appearance: string;
@@ -22,6 +23,17 @@ interface ThemeJson {
 export const useTheme = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeJson | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Safe language context usage
+  let language = 'en';
+  let isRTL = false;
+  try {
+    const langContext = useLanguage();
+    language = langContext.language;
+    isRTL = langContext.isRTL;
+  } catch {
+    // LanguageProvider not available, use defaults
+  }
 
   // Apply theme to DOM
   const applyTheme = useCallback((themeJson: ThemeJson) => {
@@ -47,11 +59,16 @@ export const useTheme = () => {
       "data-appearance",
       themeJson.config.appearance?.toLowerCase() || "light"
     );
+    
+    // Apply language-specific theme attributes
+    root.setAttribute("data-language", language);
+    root.setAttribute("data-rtl", isRTL.toString());
+    root.setAttribute("dir", isRTL ? "rtl" : "ltr");
 
     // Save to localStorage
     localStorage.setItem("app-theme", JSON.stringify(themeJson));
     setCurrentTheme(themeJson);
-  }, []);
+  }, [language, isRTL]);
 
   // Load saved theme on mount
   useEffect(() => {

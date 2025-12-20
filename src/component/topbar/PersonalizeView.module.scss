@@ -1,6 +1,6 @@
 // ============================================================================
 // PERSONALIZE VIEW - Component Scoped Styles
-// Uses Global Variables + Component-Specific Styling
+// Uses Global Variables + Component-Specific Styling + Language Theming
 // ============================================================================
 
 @use "../../styles/global/mixins.scss" as *;
@@ -14,7 +14,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  direction: inherit;
   @include transition(all, base);
+
+  // RTL adjustments
+  :root[data-rtl="true"] & {
+    text-align: var(--text-align);
+  }
 }
 
 .header {
@@ -40,6 +46,7 @@
   background-color: var(--muted);
   border-radius: calc(var(--border-radius) - 2px);
   padding: 4px;
+  flex-direction: var(--flex-direction, row);
 }
 
 .tabButton {
@@ -83,15 +90,20 @@
 }
 
 .label {
-  font-size: var(--font-size);
+  font-size: calc(var(--font-size) * var(--font-size-multiplier, 1));
   font-weight: 500;
   color: var(--foreground);
+  font-family: var(--font-family);
+  text-align: var(--text-align, left);
 }
 
 .description {
-  font-size: 0.875rem;
+  font-size: calc(0.875rem * var(--font-size-multiplier, 1));
   color: var(--muted-foreground);
   margin: 0;
+  font-family: var(--font-family);
+  line-height: calc(1.25rem * var(--line-height-multiplier, 1));
+  text-align: var(--text-align, left);
 }
 
 .select {
@@ -101,8 +113,10 @@
   border-radius: var(--border-radius);
   background-color: var(--background);
   color: var(--foreground);
-  font-size: var(--font-size);
+  font-size: calc(var(--font-size) * var(--font-size-multiplier, 1));
+  font-family: var(--font-family);
   cursor: pointer;
+  text-align: var(--text-align, left);
   @include transition(all, base);
 
   &:hover {
@@ -111,6 +125,11 @@
 
   &:focus {
     @include focus-ring;
+  }
+
+  // RTL adjustments
+  :root[data-rtl="true"] & {
+    text-align: right;
   }
 }
 
@@ -121,12 +140,19 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--padding-md);
+  flex-direction: var(--flex-direction, row);
+
+  // RTL adjustments
+  :root[data-rtl="true"] & {
+    justify-content: flex-start;
+  }
 }
 
 .button {
   padding: var(--padding-sm) var(--padding-lg);
-  font-size: var(--font-size);
+  font-size: calc(var(--font-size) * var(--font-size-multiplier, 1));
   font-weight: 500;
+  font-family: var(--font-family);
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;

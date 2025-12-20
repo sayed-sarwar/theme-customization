@@ -5,10 +5,11 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  role: 'admin' | 'manager' | 'accountant' | 'user';
+  role: 'admin' | 'accountant' | 'sales' | 'purchase';
   permissions: string[];
   department?: string;
   isActive?: boolean;
+  defaultRoute?: string;
 }
 
 type AuthResponse = {
@@ -79,18 +80,31 @@ export const userService = {
     console.log("passwordCheck",passwordCheck); 
     console.log("email", email);
       console.log("password", password);
-    if(email === emailCheck && password === passwordCheck){
+    // Demo login - different roles for testing
+    const demoUsers = {
+      'admin@erp.com': { role: 'admin', name: 'Admin User' },
+      'accountant@erp.com': { role: 'accountant', name: 'Accountant User' },
+      'sales@erp.com': { role: 'sales', name: 'Sales User' },
+      'purchase@erp.com': { role: 'purchase', name: 'Purchase User' }
+    };
+    
+    const demoUser = demoUsers[email as keyof typeof demoUsers];
+    
+    if(demoUser && password === passwordCheck){
       data = {
-        accessToken: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-        refreshToken: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        accessToken: "demo_token_" + Date.now(),
+        refreshToken: "demo_refresh_" + Date.now(),
         user: {
-          id: "123",
-          email: "XXXXXXXXXXXXX",
-          name: "sayed sarwar",
-          role: "admin",
+          id: "demo_" + demoUser.role,
+          email: email,
+          name: demoUser.name,
+          role: demoUser.role as 'admin' | 'accountant' | 'sales' | 'purchase',
           permissions: ["read", "write"],
-          department: "IT",
-          isActive: true
+          department: demoUser.role.toUpperCase(),
+          isActive: true,
+          defaultRoute: demoUser.role === 'admin' ? '/dashboard' : 
+                       demoUser.role === 'sales' ? '/sales' :
+                       demoUser.role === 'purchase' ? '/purchase' : '/dashboard'
         }
       }
     }
@@ -110,6 +124,13 @@ export const userService = {
   // optional: call backend logout endpoint then clear tokens
   async logout(): Promise<void> {
     try {
+      // Skip API call for demo mode
+      const token = getAccessToken();
+      if (!token || token.startsWith('demo_token_')) {
+        // Demo mode - just clear tokens
+        setTokens(undefined, undefined);
+        return;
+      }
       await apiRequest<void>('/auth/logout', { method: 'POST' });
     } catch {
       // ignore network/logout errors; still clear local tokens
@@ -121,6 +142,15 @@ export const userService = {
   // fetch current user from protected endpoint /auth/me or /users/me
   async getCurrentUser(): Promise<User | null> {
     try {
+      const token = getAccessToken();
+      if (!token) return null;
+      
+      // For demo mode, return user from localStorage
+      if (token.startsWith('demo_token_')) {
+        const userData = localStorage.getItem('userData');
+        return userData ? JSON.parse(userData) : null;
+      }
+      
       const data = await apiRequest<{ user: User }>('/auth/me', { method: 'GET' });
       // some APIs return { user } others return the user directly
       if ((data as any).user) return (data as any).user as User;

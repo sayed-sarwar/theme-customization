@@ -1,0 +1,25 @@
+{
+  "errors": {
+    "INVALID_CREDENTIALS": "بيانات اعتماد غير صحيحة",
+    "NETWORK_ERROR": "حدث خطأ في الشبكة",
+    "UNAUTHORIZED": "وصول غير مصرح به",
+    "SERVER_ERROR": "حدث خطأ في الخادم"
+  },
+  "ui": {
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تحرير",
+    "search": "بحث",
+    "filter": "تصفية",
+    "export": "تصدير",
+    "import": "استيراد"
+  },
+  "table": {
+    "noData": "لا توجد بيانات متاحة",
+    "rowsPerPage": "صفوف لكل صفحة",
+    "page": "صفحة",
+    "of": "من"
+  }
+}
