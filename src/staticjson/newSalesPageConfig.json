@@ -1,0 +1,279 @@
+{
+  "pageConfig": {
+    "title": "New Sale",
+    "heading": "Create New Sale",
+    "breadcrumbLabel": "New Sale",
+    "formLabel": "Customer",
+    "currency": "BDT",
+    "taxInclusive": false
+  },
+  "formFields": {
+    "customer": {
+      "label": "Customer",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter customer name",
+      "tooltip": false,
+      "edit": true,
+      "icon": false,
+      "searchable": false,
+      "disabled": false,
+
+      "validation": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    "amount": {
+      "label": "Amount",
+      "type": "number",
+      "required": true,
+      "placeholder": "0.00",
+      "tooltip": false,
+      "edit": true,
+      "icon": false,
+      "searchable": false,
+      "disabled": false,
+      "validation": {
+        "min": 0,
+        "max": 999999999
+      }
+    },
+    "date": {
+      "label": "Date",
+      "type": "date",
+      "required": true,
+      "defaultValue": "today",
+      "tooltip": false,
+      "edit": true,
+      "icon": false,
+      "searchable": false,
+      "disabled": false
+    },
+    "status": {
+      "label": "Status",
+      "type": "select",
+      "required": true,
+      "defaultValue": "Pending",
+
+      "icon": false,
+      "searchable": false,
+      "disabled": false,
+      "options": [
+        { "value": "Pending", "label": "Pending" },
+        { "value": "Paid", "label": "Paid" },
+        { "value": "Overdue", "label": "Overdue" }
+      ]
+    },
+    "description": {
+      "label": "Description",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Enter description (optional)",
+      "tooltip": false,
+      "edit": true,
+      "icon": false,
+      "searchable": false,
+      "disabled": false,
+      "rows": 3,
+      "validation": {
+        "maxLength": 500
+      }
+    }
+  },
+  "tabs": [
+    {
+      "id": "item-details",
+      "label": "Item Details",
+      "active": true,
+      "component": "ItemTable"
+    },
+    {
+      "id": "payment-details",
+      "label": "Payment Details",
+      "active": false,
+      "component": "PaymentDetails"
+    },
+    {
+      "id": "terms-conditions",
+      "label": "Terms and Conditions",
+      "active": false,
+      "component": "TermsConditions"
+    },
+    {
+      "id": "attachments",
+      "label": "Attachments",
+      "active": false,
+      "component": "Attachments"
+    }
+  ],
+  "itemTableConfig": {
+    "columns": [
+      {
+        "key": "no",
+        "label": "#",
+        "type": "number",
+        "width": "60px",
+        "editable": false
+      },
+      {
+        "key": "category",
+        "label": "Category",
+        "type": "select",
+        "width": "150px",
+        "editable": true,
+        "options": [
+          { "value": "product", "label": "Product" },
+          { "value": "service", "label": "Service" },
+          { "value": "digital", "label": "Digital" }
+        ]
+      },
+      {
+        "key": "item",
+        "label": "Item",
+        "type": "text",
+        "width": "200px",
+        "editable": true,
+        "required": true
+      },
+      {
+        "key": "quantity",
+        "label": "Quantity",
+        "type": "number",
+        "width": "100px",
+        "editable": true,
+        "min": 0,
+        "defaultValue": 1
+      },
+      {
+        "key": "rate",
+        "label": "Rate",
+        "type": "number",
+        "width": "120px",
+        "editable": true,
+        "min": 0,
+        "step": 0.01
+      },
+      {
+        "key": "tax",
+        "label": "Tax",
+        "type": "select",
+        "width": "100px",
+        "editable": true,
+        "options": [
+          { "value": "none", "label": "None", "percent": 0 },
+          { "value": "vat", "label": "VAT", "percent": 15 },
+          { "value": "gst", "label": "GST", "percent": 18 },
+          { "value": "custom", "label": "Custom", "percent": 0 }
+        ]
+      },
+      {
+        "key": "amount",
+        "label": "Amount",
+        "type": "number",
+        "width": "120px",
+        "editable": false,
+        "calculated": true
+      }
+    ],
+    "defaultRow": {
+      "id": "",
+      "no": 1,
+      "category": "",
+      "item": "",
+      "quantity": 1,
+      "rate": 0,
+      "tax": "none",
+      "taxPercent": 0,
+      "amount": 0
+    }
+  },
+  "paymentDetails": {
+    "fields": [
+      {
+        "key": "paymentMethod",
+        "label": "Payment Method",
+        "type": "select",
+        "options": [
+          { "value": "cash", "label": "Cash" },
+          { "value": "bank_transfer", "label": "Bank Transfer" },
+          { "value": "credit_card", "label": "Credit Card" },
+          { "value": "check", "label": "Check" }
+        ]
+      },
+      {
+        "key": "paymentTerms",
+        "label": "Payment Terms",
+        "type": "select",
+        "options": [
+          { "value": "immediate", "label": "Immediate" },
+          { "value": "net_15", "label": "Net 15 days" },
+          { "value": "net_30", "label": "Net 30 days" },
+          { "value": "net_60", "label": "Net 60 days" }
+        ]
+      },
+      {
+        "key": "dueDate",
+        "label": "Due Date",
+        "type": "date"
+      }
+    ]
+  },
+  "termsConditions": {
+    "defaultTerms": [
+      "Payment is due within 30 days of invoice date.",
+      "Late payments may incur additional charges.",
+      "All sales are final unless otherwise specified.",
+      "Goods remain the property of the seller until payment is received in full."
+    ],
+    "customTermsEnabled": true
+  },
+  "attachments": {
+    "allowedTypes": [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"],
+    "maxFileSize": "5MB",
+    "maxFiles": 10
+  },
+  "actions": {
+    "cancel": {
+      "label": "Cancel",
+      "type": "dropdown",
+      "action": "cancel",
+      "options": [
+        { "value": "discard", "label": "Discard Changes" },
+        { "value": "save_draft", "label": "Save as Draft" }
+      ]
+    },
+    "makeRecurring": {
+      "label": "Make Recurring",
+      "type": "button",
+      "enabled": true,
+      "action": "mrecurring"
+    },
+    "save": {
+      "label": "Save",
+      "type": "button",
+      "primary": true,
+      "action": "save"
+    },
+    "saveAndSend": {
+      "label": "Save and Send",
+      "type": "dropdown",
+      "options": [
+        { "value": "email", "label": "Send via Email" },
+        { "value": "sms", "label": "Send via SMS" },
+        { "value": "print", "label": "Print Invoice" }
+      ]
+    }
+  },
+  "validation": {
+    "required": ["customer", "amount", "date"],
+    "itemTableRequired": true,
+    "minItems": 1
+  },
+  "notifications": {
+    "success": "Sale created successfully!",
+    "error": "Failed to create sale. Please check all required fields.",
+    "draft": "Sale saved as draft.",
+    "recurring": "Recurring sale setup completed."
+  }
+}

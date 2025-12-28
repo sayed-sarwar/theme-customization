@@ -43,15 +43,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   })();
 
   const [user, setUser] = useState<User | null>(initialUser);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // keep a single source of truth in react-query for the current user
   const { data: fetchedUser, isLoading: fetching } = useQuery({
     queryKey: ["user"],
-    queryFn: () => userService.getCurrentUser(),
+    queryFn: async () => {
+      // Only fetch if we have a token in localStorage
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        setIsInitialized(true);
+        return null;
+      }
+      const user = await userService.getCurrentUser();
+      return user;
+    },
     initialData: initialUser ?? undefined,
     retry: false,
     refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
+
+  // Initialize immediately if we have cached user data to avoid loading screen
+  useEffect(() => {
+    if (initialUser && !isInitialized) {
+      setIsInitialized(true);
+    }
+  }, [initialUser, isInitialized]);
 
   useEffect(() => {
     if (fetchedUser === null) {
@@ -84,6 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       await loginMutation.mutateAsync({ email, password });
       return true;
     } catch (e) {
+      console.error("Login error:", e);
       return false;
     }
   };
@@ -105,7 +124,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const value: AuthContextType = {
     user,
     isAuthenticated: !!user,
-    isLoading: fetching || loginMutation.isPending,
+    isLoading: !isInitialized || fetching || loginMutation.isPending,
     login,
     logout,
     hasRole,

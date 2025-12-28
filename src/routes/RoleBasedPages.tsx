@@ -1,28 +1,22 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
-import menuData from "@/staticjson/data1.json";
+import { Routes, Route } from "react-router-dom";
 import PageRenderer from "@/components/PageRenderer";
-import { Unauthorized } from "@/pages/Unauthorized";
-import DynamicModulePage from "@/pages/DynamicModulePage";
+import { NotFound } from "@/pages/NotFound";
+import menuData from "@/staticjson/data1.json";
 
 import NewSalePage from "@/pages/NewSalePage";
 import EditSalePage from "@/pages/EditSalePage";
+import ListPage from "@/pages/ListPage";
+import SalesPage from "@/pages/SalesPage";
+import Purchase from "@/pages/purchase";
+import ViewOrderPage from "@/pages/ViewOrderPage";
 
 const RoleBasedPages = () => {
-  const { user } = useAuth();
-
-  const hasAccess = (roles: string[]) => {
-    return user && roles.includes(user.role);
-  };
-
-  const renderRoutes = (items: any[], parentPath = ""): any[] => {
+  const renderRoutes = (items: any[]): any[] => {
     return items.map((item) => {
-      if (!hasAccess(item.roles)) return null;
-
       const fullPath = item.route?.replace("/", "") || item.key;
 
       if (item.children) {
-        return renderRoutes(item.children, fullPath);
+        return renderRoutes(item.children);
       }
 
       return (
@@ -37,11 +31,27 @@ const RoleBasedPages = () => {
 
   return (
     <Routes>
+      {/* Sales Routes */}
+      <Route path="sales" element={<SalesPage />} />
       <Route path="sales/new" element={<NewSalePage />} />
+      <Route path="sales/list" element={<ListPage />} />
+      <Route path="sales/view/:id" element={<ViewOrderPage />} />
       <Route path="sales/edit/:id" element={<EditSalePage />} />
-      <Route path="modules/:moduleSlug/:subView?" element={<DynamicModulePage />} />
+      
+      {/* Purchase Routes */}
+      <Route path="purchase/new" element={<NewSalePage />} />
+      <Route path="purchase/list" element={<ListPage />} />
+      <Route path="purchase/view/:id" element={<ViewOrderPage />} />
+      <Route path="purchase/edit/:id" element={<EditSalePage />} />
+
+      {/* Purchase Routes */}
+      <Route path="purchase" element={<Purchase />} />
+
+      {/* Dynamic routes from menu data */}
       {renderRoutes(menuData)}
-      <Route path="*" element={<Unauthorized />} />
+
+      {/* Catch all - 404 */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

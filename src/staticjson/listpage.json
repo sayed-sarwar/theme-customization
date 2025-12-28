@@ -1,0 +1,181 @@
+{
+  "page": {
+    "key": "order_list",
+    "type": "list",
+    "entity": "order",
+    "routes": {
+      "purchase": "/purchase",
+      "sales": "/sales"
+    },
+    "title": {
+      "purchase": "Purchase Order",
+      "sales": "Sales Order"
+    }
+  },
+
+  "views": {
+    "default": "table",
+    "available": ["table", "kanban"]
+  },
+
+  "statusSummary": [
+    {
+      "key": "Open",
+      "label": "Open",
+      "color": "blue",
+      "filterField": "status"
+    },
+    {
+      "key": "In Process",
+      "label": "In Process",
+      "color": "orange",
+      "filterField": "status"
+    },
+    {
+      "key": "Completed",
+      "label": "Completed",
+      "color": "green",
+      "filterField": "status"
+    }
+  ],
+
+  "filters": {
+    "globalSearch": {
+      "enabled": true,
+      "placeholder": "Search orders..."
+    },
+    "statusFilter": {
+      "field": "status",
+      "type": "single"
+    }
+  },
+
+  "table": {
+    "rowSelection": true,
+    "columns": [
+      {
+        "key": "orderDate",
+        "label": "Order Date",
+        "type": "date",
+        "sortable": true
+      },
+      {
+        "key": "customerName",
+        "label": "Customer Name",
+        "type": "text"
+      },
+      {
+        "key": "orderNo",
+        "label": "Order No",
+        "type": "text"
+      },
+      {
+        "key": "supplier",
+        "label": "Supplier",
+        "type": "text"
+      },
+      {
+        "key": "location",
+        "label": "Location",
+        "type": "text"
+      },
+      {
+        "key": "totalTax",
+        "label": "Total Tax",
+        "type": "currency",
+        "currency": "BDT"
+      },
+      {
+        "key": "totalAmount",
+        "label": "Total Amount",
+        "type": "currency",
+        "currency": "BDT"
+      },
+      {
+        "key": "status",
+        "label": "Status",
+        "type": "badge",
+        "colors": {
+          "Open": "blue",
+          "In Process": "orange",
+          "Completed": "green"
+        }
+      }
+    ]
+  },
+
+  "kanban": {
+    "groupBy": "status",
+    "columns": [
+      {
+        "key": "Open",
+        "color": "blue"
+      },
+      {
+        "key": "In Process",
+        "color": "orange"
+      },
+      {
+        "key": "Completed",
+        "color": "green"
+      }
+    ],
+    "card": {
+      "title": "customerName",
+      "subtitle": "orderNo",
+      "meta": ["orderDate", "supplier"],
+      "amountField": "totalAmount"
+    }
+  },
+
+  "actions": {
+    "header": [
+      {
+        "key": "add",
+        "label": "Add Order",
+        "type": "dropdown",
+        "items": [
+          {
+            "label": "Add New",
+            "route": "/{module}/new"
+          },
+          {
+            "label": "Import from File",
+            "action": "import"
+          },
+          {
+            "label": "Quick Add",
+            "action": "quick_add"
+          }
+        ]
+      }
+    ],
+    "row": [
+      {
+        "key": "view",
+        "label": "View",
+        "route": "/{module}/view/{id}"
+      },
+      {
+        "key": "edit",
+        "label": "Edit",
+        "route": "/{module}/edit/{id}"
+      },
+      {
+        "key": "delete",
+        "label": "Delete",
+        "confirm": true
+      }
+    ],
+    "bulk": [
+      {
+        "key": "export",
+        "label": "Export"
+      },
+      {
+        "key": "print",
+        "label": "Print"
+      }
+    ]
+  }
+}

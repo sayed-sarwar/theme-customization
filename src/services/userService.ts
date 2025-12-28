@@ -25,10 +25,19 @@ function setTokens(accessToken?: string, refreshToken?: string) {
 
   if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
   else localStorage.removeItem(REFRESH_KEY);
+  
+  // Clear user data when tokens are cleared
+  if (!accessToken) {
+    localStorage.removeItem('userData');
+  }
 }
 
 function getAccessToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
+}
+
+function getRefreshToken(): string | null {
+  return localStorage.getItem(REFRESH_KEY);
 }
 
 async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
@@ -38,6 +47,8 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
   };
   const token = getAccessToken();
   if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  console.log(`[API Request] ${options.method || 'GET'} ${API_BASE}${path}`);
 
   const res = await fetch(`${API_BASE}${path}`, {
     credentials: 'include',
@@ -55,6 +66,7 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
     } catch {
       // ignore
     }
+    console.error(`[API Error] ${res.status}: ${message}`);
     const err = new Error(message);
     (err as any).status = res.status;
     throw err;
@@ -62,60 +74,75 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
 
   // Some endpoints may return empty body
   const contentType = res.headers.get('content-type') || '';
+  let responseData: T;
+  
   if (contentType.includes('application/json')) {
-    return (await res.json()) as T;
+    responseData = (await res.json()) as T;
+  } else {
+    // @ts-ignore
+    responseData = (await res.text()) as T;
   }
-  // @ts-ignore
-  return (await res.text()) as T;
+  
+  console.log(`[API Response] ${options.method || 'GET'} ${API_BASE}${path}:`, responseData);
+  return responseData;
+}
+
+export interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export const userService = {
+  // posts registration data to /auth/register
+  async register(data: RegisterData): Promise<{ message: string }> {
+    const body = JSON.stringify(data);
+    const response = await apiRequest<{ message: string }>('/auth/register', {
+      method: 'POST',
+      body
+    });
+    return response;
+  },
+
   // posts credentials to /auth/login, stores tokens and returns the user
   async login(email: string, password: string): Promise<User> {
     const body = JSON.stringify({ email, password });
-    const emailCheck = "admin@erp.com"
-    const passwordCheck = "admin123";
-    let data:any
-    console.log("emailCheck",emailCheck);
-    console.log("passwordCheck",passwordCheck); 
-    console.log("email", email);
-      console.log("password", password);
-    // Demo login - different roles for testing
-    const demoUsers = {
-      'admin@erp.com': { role: 'admin', name: 'Admin User' },
-      'accountant@erp.com': { role: 'accountant', name: 'Accountant User' },
-      'sales@erp.com': { role: 'sales', name: 'Sales User' },
-      'purchase@erp.com': { role: 'purchase', name: 'Purchase User' }
-    };
     
-    const demoUser = demoUsers[email as keyof typeof demoUsers];
-    
-    if(demoUser && password === passwordCheck){
-      data = {
-        accessToken: "demo_token_" + Date.now(),
-        refreshToken: "demo_refresh_" + Date.now(),
-        user: {
-          id: "demo_" + demoUser.role,
-          email: email,
-          name: demoUser.name,
-          role: demoUser.role as 'admin' | 'accountant' | 'sales' | 'purchase',
-          permissions: ["read", "write"],
-          department: demoUser.role.toUpperCase(),
-          isActive: true,
-          defaultRoute: demoUser.role === 'admin' ? '/dashboard' : 
-                       demoUser.role === 'sales' ? '/sales' :
-                       demoUser.role === 'purchase' ? '/purchase' : '/dashboard'
-        }
-      }
-    }
-    else{
-     data = (await apiRequest<AuthResponse>('/auth/login', {
+    const response = await apiRequest<AuthResponse>('/auth/login', {
       method: 'POST',
       body
-    })) as AuthResponse;
-    }
-    console.log("data", data);
+    });
     
+    // Parse response data properly
+    const responseData = await Promise.resolve(response);
+    
+    // Handle different response structures
+    let data: AuthResponse;
+    
+    // If response is already the AuthResponse object
+    if ('user' in responseData && 'accessToken' in responseData) {
+      data = responseData as AuthResponse;
+    } else if ('data' in responseData && (responseData as any).data?.user) {
+      // If response has data wrapper
+      data = (responseData as any).data as AuthResponse;
+    } else {
+      // Treat entire response as AuthResponse
+      data = responseData as AuthResponse;
+    }
+    
+    // Validate required fields
+    if (!data.user) {
+      console.error('Login error: Missing user in response', data);
+      throw new Error('Invalid response: missing user data');
+    }
+    
+    if (!data.accessToken) {
+      console.error('Login error: Missing accessToken in response', data);
+      throw new Error('Invalid response: missing accessToken');
+    }
+    
+    // Save user data for API login
+    localStorage.setItem('userData', JSON.stringify(data.user));
 
     setTokens(data.accessToken, data.refreshToken);
     return data.user;
@@ -124,13 +151,6 @@ export const userService = {
   // optional: call backend logout endpoint then clear tokens
   async logout(): Promise<void> {
     try {
-      // Skip API call for demo mode
-      const token = getAccessToken();
-      if (!token || token.startsWith('demo_token_')) {
-        // Demo mode - just clear tokens
-        setTokens(undefined, undefined);
-        return;
-      }
       await apiRequest<void>('/auth/logout', { method: 'POST' });
     } catch {
       // ignore network/logout errors; still clear local tokens
@@ -145,17 +165,15 @@ export const userService = {
       const token = getAccessToken();
       if (!token) return null;
       
-      // For demo mode, return user from localStorage
-      if (token.startsWith('demo_token_')) {
-        const userData = localStorage.getItem('userData');
-        return userData ? JSON.parse(userData) : null;
-      }
-      
+      // Fetch from backend
       const data = await apiRequest<{ user: User }>('/auth/me', { method: 'GET' });
       // some APIs return { user } others return the user directly
       if ((data as any).user) return (data as any).user as User;
       return (data as unknown) as User;
-    } catch {
+    } catch (error) {
+      console.error('getCurrentUser error:', error);
+      // If token is invalid, clear it
+      setTokens(undefined, undefined);
       return null;
     }
   },

@@ -22,6 +22,7 @@ import {
   Wallet,
   Percent,
 } from "lucide-react";
+import { useEffect } from "react";
 // import data from "../../data1.json";
 
 const iconMap: { [key: string]: any } = {
@@ -48,7 +49,13 @@ const LeftSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const location = useLocation();
-  const { menuItems, userRole } = useRoleBasedMenu();
+  const { menuItems } = useRoleBasedMenu();
+
+  // Debug logging
+  useEffect(() => {
+    console.log("[Sidebar] Menu items loaded:", menuItems);
+  }, [menuItems]);
+
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -60,18 +67,20 @@ const LeftSidebar = () => {
   const renderNavItem = (item: any, level = 0) => {
     const hasChildren = item.children && item.children.length > 0;
     const isExpanded = expandedItems.includes(item.key || item.id);
-    const paddingLeft = isCollapsed ? '12px' : `${(level + 1) * 16}px`;
+    const paddingLeft = isCollapsed ? "12px" : `${(level + 1) * 16}px`;
     const isHovered = hoveredItem === (item.key || item.id);
 
     return (
-      <div 
-        key={item.key || item.id} 
+      <div
+        key={item.key || item.id}
         className="mb-1 relative"
         data-item-id={item.key || item.id}
-        onMouseEnter={() => isCollapsed && hasChildren && setHoveredItem(item.key || item.id)}
+        onMouseEnter={() =>
+          isCollapsed && hasChildren && setHoveredItem(item.key || item.id)
+        }
         onMouseLeave={() => setHoveredItem(null)}
       >
-        {(item.url || item.route) ? (
+        {item.url || item.route ? (
           <Link
             to={item.url || item.route}
             className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
@@ -123,7 +132,8 @@ const LeftSidebar = () => {
               )}
               {!isCollapsed && <span>{item.label}</span>}
             </div>
-            {hasChildren && !isCollapsed &&
+            {hasChildren &&
+              !isCollapsed &&
               (isExpanded ? (
                 <ChevronDown className="h-4 w-4" />
               ) : (
@@ -146,12 +156,18 @@ const LeftSidebar = () => {
 
         {/* Hover submenu for collapsed sidebar */}
         {isCollapsed && hasChildren && isHovered && (
-          <div 
-            className="fixed bg-white border border-gray-200 rounded-lg shadow-xl py-2 min-w-48" 
+          <div
+            className="fixed bg-white border border-gray-200 rounded-lg shadow-xl py-2 min-w-48"
             style={{
-              left: '64px',
-              top: `${(document.querySelector(`[data-item-id="${item.key || item.id}"]`) as HTMLElement)?.offsetTop || 0}px`,
-              zIndex: 9999
+              left: "64px",
+              top: `${
+                (
+                  document.querySelector(
+                    `[data-item-id="${item.key || item.id}"]`
+                  ) as HTMLElement
+                )?.offsetTop || 0
+              }px`,
+              zIndex: 9999,
             }}
             data-submenu={item.key || item.id}
           >
@@ -164,11 +180,11 @@ const LeftSidebar = () => {
                 to={child.url || child.route}
                 className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
-                {child.icon && iconMap[child.icon] && (
+                {child.icon &&
+                  iconMap[child.icon] &&
                   React.createElement(iconMap[child.icon], {
                     className: "h-4 w-4 mr-3",
-                  })
-                )}
+                  })}
                 <span>{child.label}</span>
               </Link>
             ))}
@@ -178,11 +194,11 @@ const LeftSidebar = () => {
                 to={page.url || page.route}
                 className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
-                {page.icon && iconMap[page.icon] && (
+                {page.icon &&
+                  iconMap[page.icon] &&
                   React.createElement(iconMap[page.icon], {
                     className: "h-4 w-4 mr-3",
-                  })
-                )}
+                  })}
                 <span>{page.label}</span>
               </Link>
             ))}
@@ -193,7 +209,11 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-white border-r border-gray-200 flex flex-col shadow-sm transition-all duration-300`}>
+    <div
+      className={`${
+        isCollapsed ? "w-16" : "w-64"
+      } h-screen bg-white border-r border-gray-200 flex flex-col shadow-sm transition-all duration-300`}
+    >
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
         <button
@@ -206,15 +226,14 @@ const LeftSidebar = () => {
 
       {/* Navigation */}
       <div className="flex-1 overflow-y-auto p-4">
-        {!isCollapsed && (
-          <div className="mb-4 p-2 bg-gray-50 rounded text-xs text-gray-600">
-            Role: <span className="font-semibold">{userRole}</span>
-          </div>
-        )}
         <nav className="space-y-2">
-          {menuItems
-            .filter((item: any) => item.key !== "dashboard")
-            .map((item: any) => renderNavItem(item))}
+          {menuItems && menuItems.length > 0
+            ? menuItems.map((item: any) => renderNavItem(item))
+            : !isCollapsed && (
+                <div className="text-xs text-gray-500 p-2">
+                  No menu items available
+                </div>
+              )}
         </nav>
       </div>
 

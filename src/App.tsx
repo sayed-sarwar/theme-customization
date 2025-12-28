@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fetchData } from "../store/usermedata/usermedata";
 import { AuthProvider } from "./context/AuthContext";
 import { LanguageProvider } from "./context/LanguageContext";
+import { NotificationProvider } from "./context/NotificationContext";
+import Toast from "./components/Toast";
 import RootRoute from "./routes/Route";
 
 const queryClient = new QueryClient();
@@ -17,11 +19,14 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <AuthProvider>
-          <RootRoute />
-        </AuthProvider>
-      </LanguageProvider>
+      <NotificationProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <Toast />
+            <RootRoute />
+          </AuthProvider>
+        </LanguageProvider>
+      </NotificationProvider>
     </QueryClientProvider>
   );
 }

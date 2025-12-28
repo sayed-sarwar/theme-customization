@@ -1,24 +1,37 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useNotification } from "@/context/NotificationContext";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
+  const { addToast } = useNotification();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = await login(email, password);
-    if (success) {
-      // Get user data to check for defaultRoute
-      const userData = localStorage.getItem("userData");
-      const user = userData ? JSON.parse(userData) : null;
-      const redirectTo =
-        location.state?.from?.pathname || user?.defaultRoute || "/dashboard";
-      navigate(redirectTo, { replace: true });
+    setIsLoading(true);
+    try {
+      const success = await login(email, password);
+      if (success) {
+        addToast("Login successful! Redirecting...", "success");
+        // Redirect to dashboard
+        setTimeout(() => {
+          navigate("/dashboard", { replace: true });
+        }, 1500);
+      } else {
+        const errorMessage = "Login failed. Please check your credentials.";
+        addToast(errorMessage, "error");
+      }
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An error occurred during login";
+      addToast(errorMessage, "error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,24 +52,43 @@ export const Login = () => {
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
             />
           </div>
           <div>
             <input
               type="password"
               required
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none "
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
             />
           </div>
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={isLoading}
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: "var(--Primary-Color, hsla(152, 96%, 33%, 1))",
+            }}
           >
-            Sign in
+            {isLoading ? "Signing in..." : "Sign in"}
           </button>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{" "}
+              <button
+                type="button"
+                onClick={() => navigate("/register")}
+                className="font-medium "
+              >
+                Register here
+              </button>
+            </p>
+          </div>
         </form>
       </div>
     </div>

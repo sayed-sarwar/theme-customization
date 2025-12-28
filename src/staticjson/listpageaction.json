@@ -1,0 +1,36 @@
+{
+  "toolbar": [
+    {
+      "id": "add_dropdown",
+      "type": "dropdown",
+      "label": "Add {{pageTitle}}",
+      "icon": "Plus",
+      "items": [
+        {
+          "id": "add_new",
+          "label": "Add New {{pageTitle}}",
+          "action": "navigate",
+          "icon":"Grid3x3"
+        },
+        {
+          "id": "import",
+          "label": "Import from File",
+          "action": "import",
+          "icon":"Grid3x3"
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "type": "icon-button",
+      "icon": "MoreVertical",
+      "action": "more"
+    },
+    {
+      "id": "grid",
+      "type": "icon-button",
+      "icon": "Grid3x3",
+      "action": "import"
+    }
+  ]
+}

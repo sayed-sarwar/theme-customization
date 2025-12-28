@@ -1,7 +1,7 @@
-const API_BASE_URL = "https://jsonplaceholder.typicode.com/posts";
-const API_KEY = "your-api-key-here";
+const API_BASE_URL = "http://localhost:3000";
+const API_KEY = "super_secret_key_123";
 const TIMEOUT = 5000;
-const API_BASE = (import.meta as any).env?.VITE_API_BASE_URL || '/api';
+const API_BASE = "http://localhost:3000";
 const TOKEN_KEY = 'app_access_token';
 const REFRESH_KEY = 'app_refresh_token';
 

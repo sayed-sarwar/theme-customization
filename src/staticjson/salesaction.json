@@ -1,0 +1,24 @@
+[
+  {
+    "id": "add_sale",
+    "label": "Add New Sale",
+    "icon": "Plus",
+    "variant": "default Primary-Split-Button",
+    "navigateTo": "/sales/new"
+  },
+  {
+    "id": "view_sales",
+    "label": "View All Sales",
+    "icon": "Plus",
+    "variant": "outline Secondary-Icon-Button",
+    "navigateTo": "/sales/list"
+  },
+  {
+    "id": "import_sales",
+    "label": "Import Sales Data",
+    "icon": "Plus",
+    "variant": "secondary",
+    "action": "IMPORT_FILE",
+    "accept": ".json,.csv"
+  }
+]

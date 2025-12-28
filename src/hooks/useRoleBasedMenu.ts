@@ -7,18 +7,8 @@ export const useRoleBasedMenu = () => {
 
   const filteredMenu = useMemo(() => {
     if (!user) return [];
-
-    const filterMenuItems = (items: any[]): any[] => {
-      return items
-        .filter(item => item.roles.includes(user.role))
-        .map(item => ({
-          ...item,
-          children: item.children ? filterMenuItems(item.children) : undefined
-        }))
-        .filter(item => !item.children || item.children.length > 0);
-    };
-
-    return filterMenuItems(menuData);
+    // Return all menu items without role filtering
+    return menuData;
   }, [user]);
 
   return { menuItems: filteredMenu, userRole: user?.role };

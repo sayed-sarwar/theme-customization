@@ -1,0 +1,62 @@
+{
+  "open": [
+    {
+      "id": 1,
+      "customerName": "ABC Traders",
+      "status": "open",
+      "orderDate": "2025-01-10",
+      "supplier": "Global Supplies Ltd",
+      "orderNo": "PO-1001",
+      "totalAmount": 12500
+    },
+    {
+      "id": 2,
+      "customerName": "Delta Enterprise",
+      "status": "open",
+      "orderDate": "2025-01-12",
+      "supplier": "Prime Wholesale",
+      "orderNo": "PO-1002",
+      "totalAmount": 8200
+    }
+  ],
+  "inProcess": [
+    {
+      "id": 3,
+      "customerName": "Nova Corporation",
+      "status": "in_process",
+      "orderDate": "2025-01-08",
+      "supplier": "Metro Distributors",
+      "orderNo": "PO-1003",
+      "totalAmount": 15400
+    },
+    {
+      "id": 4,
+      "customerName": "Skyline Ltd",
+      "status": "in_process",
+      "orderDate": "2025-01-09",
+      "supplier": "Universal Traders",
+      "orderNo": "PO-1004",
+      "totalAmount": 6700
+    }
+  ],
+  "completed": [
+    {
+      "id": 5,
+      "customerName": "Zenith Group",
+      "status": "completed",
+      "orderDate": "2025-01-02",
+      "supplier": "Alpha Imports",
+      "orderNo": "PO-1005",
+      "totalAmount": 21000
+    },
+    {
+      "id": 6,
+      "customerName": "Orion Solutions",
+      "status": "completed",
+      "orderDate": "2025-01-04",
+      "supplier": "Core Supplies",
+      "orderNo": "PO-1006",
+      "totalAmount": 9800
+    }
+  ]
+}
