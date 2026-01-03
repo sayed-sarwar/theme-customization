@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import * as React from "react";
 import {
   Plus,
   Search,
@@ -11,11 +12,16 @@ import {
   Grid3x3,
   List,
   LayoutGrid,
-  
+  Copy,
+  Printer,
+  Download,
+  Upload,
+  Zap,
+  Settings,
+  Package,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Checkbox } from "@/component/shadcnui/checkbox";
-import listpageaction from "../../staticjson/listpageaction.json";
 import {
   useReactTable,
   getCoreRowModel,
@@ -24,57 +30,34 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-import listpage from "../../staticjson/listpage.json";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/component/shadcnui/dropdown-menu";
-
+import listTableConfig from "../../staticjson/listTableConfig.json";
 
 const ICONS: Record<string, any> = {
   Plus,
   ChevronDown,
   MoreVertical,
   Grid3x3,
+  Search,
+  Edit,
+  Eye,
+  Trash2,
+  RefreshCw,
+  List,
+  LayoutGrid,
+  Copy,
+  Printer,
+  Download,
+  Upload,
+  Zap,
+  Settings,
+  Package,
 };
-
-type ToolbarMenuItem = {
-  id: string;
-  label: string;
-  action: string;
-  route?: string;
-};
-
-type ToolbarItem = {
-  id: string;
-  type: "dropdown" | "icon-button";
-  label?: string;
-  icon: keyof typeof ICONS;
-  style?: {
-    backgroundColor: string;
-    textColor: string;
-  };
-  items?: ToolbarMenuItem[];
-};
-
-type ListPageActionsConfig = {
-  toolbar: ToolbarItem[];
-};
-
-type ListPageConfig = {
-  table: {
-    columns: {
-      key: keyof PurchaseOrder;
-      label: string;
-      type: string;
-    }[];
-  };
-};
-
-const listConfig = listpage as ListPageConfig;
-const listpageActions = listpageaction as ListPageActionsConfig;
 
 type PurchaseOrder = {
   id: number;
@@ -91,101 +74,34 @@ type PurchaseOrder = {
 const columnHelper = createColumnHelper<PurchaseOrder>();
 
 const getStatusDotColor = (status: string) => {
-  switch (status) {
-    case "Open":
-      return "bg-blue-500";
-    case "In Process":
-      return "bg-orange-500";
-    case "Completed":
-      return "bg-green-500";
-    default:
-      return "bg-gray-500";
-  }
-};
-
-const getStatusCardColor = (status: string) => {
-  switch (status) {
-    case "Open":
-      return {
-        bg: "bg-blue-50",
-        border: "border-blue-500",
-        text: "text-blue-600",
-        ring: "ring-blue-500",
-      };
-    case "In Process":
-      return {
-        bg: "bg-yellow-50",
-        border: "border-yellow-500",
-        text: "text-yellow-600",
-        ring: "ring-yellow-500",
-      };
-    case "Completed":
-      return {
-        bg: "bg-green-50",
-        border: "border-green-500",
-        text: "text-green-600",
-        ring: "ring-green-500",
-      };
-    default:
-      return {
-        bg: "bg-gray-50",
-        border: "border-gray-500",
-        text: "text-gray-600",
-        ring: "ring-gray-500",
-      };
-  }
+  const config = listTableConfig.statusSummary.cards.find(
+    (card) => card.key === status
+  );
+  return config?.color.dot || "bg-gray-500";
 };
 
 const ListTable = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const config = listTableConfig;
 
   // Detect if this is purchase or sales
   const isPurchase = location.pathname.includes("/purchase");
-  const pageTitle = isPurchase ? "Purchase Order" : "Sales Order";
+  const pageTitle = isPurchase
+    ? config.pageConfig.title.purchase
+    : config.pageConfig.title.sales;
 
-  const [purchaseData, setPurchaseData] = useState<PurchaseOrder[]>([
-    {
-      id: 1,
-      orderDate: "March 12, 2025",
-      customerName: "Lynx",
-      orderNo: "12214356",
-      supplier: "Amazon",
-      location: "Mirpur",
-      totalTax: 34.0,
-      totalAmount: 12005.0,
-      status: "Open",
-    },
-    {
-      id: 2,
-      orderDate: "March 13, 2025",
-      customerName: "Bamboo Bears",
-      orderNo: "12214357",
-      supplier: "eBay",
-      location: "Dhanmondi",
-      totalTax: 45.0,
-      totalAmount: 20010.0,
-      status: "In Process",
-    },
-    {
-      id: 3,
-      orderDate: "March 15, 2025",
-      customerName: "Eagles",
-      orderNo: "12214359",
-      supplier: "Flipkart",
-      location: "Uttara",
-      totalTax: 23.0,
-      totalAmount: 3000.0,
-      status: "Completed",
-    },
-  ]);
-
+  const [purchaseData, setPurchaseData] = useState<PurchaseOrder[]>(
+    config.sampleData as PurchaseOrder[]
+  );
   const [globalFilter, setGlobalFilter] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [selectedRows, setSelectedRows] = useState<Record<string, boolean>>({});
-  const [viewMode, setViewMode] = useState<"table" | "kanban">("table");
+  const [viewMode, setViewMode] = useState<"table" | "kanban">(
+    config.pageConfig.defaultView as "table" | "kanban"
+  );
 
   useEffect(() => {
     setIsReady(true);
@@ -199,40 +115,29 @@ const ListTable = () => {
     setSelectedRows({});
   }, [location.pathname]);
 
-  // Calculate status counts and totals
+  // Calculate status counts and totals using config
   const statusStats = useMemo(() => {
-    const open = purchaseData.filter((item) => item.status === "Open");
-    const inProcess = purchaseData.filter(
-      (item) => item.status === "In Process"
-    );
-    const completed = purchaseData.filter(
-      (item) => item.status === "Completed"
-    );
+    const stats: Record<string, { count: number; total: number }> = {};
 
-    return {
-      open: {
-        count: open.length,
-        total: open.reduce((sum, item) => sum + item.totalAmount, 0),
-      },
-      inProcess: {
-        count: inProcess.length,
-        total: inProcess.reduce((sum, item) => sum + item.totalAmount, 0),
-      },
-      completed: {
-        count: completed.length,
-        total: completed.reduce((sum, item) => sum + item.totalAmount, 0),
-      },
-    };
-  }, [purchaseData]);
+    config.statusSummary.cards.forEach((card) => {
+      const items = purchaseData.filter((item) => item.status === card.key);
+      stats[card.key] = {
+        count: items.length,
+        total: items.reduce((sum, item) => sum + item.totalAmount, 0),
+      };
+    });
+
+    return stats;
+  }, [purchaseData, config.statusSummary.cards]);
 
   // Format date to display format
   const formatDate = (dateString: string) => {
     return dateString; // Already formatted in data
   };
 
-  // Format currency
+  // Format currency using config
   const formatCurrency = (amount: number) => {
-    return `TK ${amount.toFixed(2)}`;
+    return `${config.pageConfig.currency} ${amount.toFixed(2)}`;
   };
 
   // Get initials for avatar
@@ -245,22 +150,26 @@ const ListTable = () => {
       .slice(0, 2);
   };
 
-  // Group data by status for Kanban view
+  // Group data by status for Kanban view using config
   const kanbanData = useMemo(() => {
-    const open = purchaseData.filter((item) => item.status === "Open");
-    const inProcess = purchaseData.filter(
-      (item) => item.status === "In Process"
-    );
-    const completed = purchaseData.filter(
-      (item) => item.status === "Completed"
-    );
+    const grouped: Record<string, PurchaseOrder[]> = {};
 
-    return { open, inProcess, completed };
-  }, [purchaseData]);
+    config.kanbanConfig.columns.forEach((column) => {
+      grouped[column.key] = purchaseData.filter(
+        (item) => item.status === column.key
+      );
+    });
 
-  const columns = useMemo(
-    () => [
-      {
+    return grouped;
+  }, [purchaseData, config.kanbanConfig.columns]);
+
+  // Generate columns from config
+  const columns = useMemo(() => {
+    const cols = [];
+
+    // Add selection column if enabled
+    if (config.tableConfig.rowSelection.enabled) {
+      cols.push({
         id: "select",
         header: ({ table }: any) => (
           <Checkbox
@@ -299,110 +208,156 @@ const ListTable = () => {
         ),
         enableSorting: false,
         enableHiding: false,
-      },
-      columnHelper.accessor("orderDate", {
-        header: "Order Date",
-        cell: (info) => formatDate(info.getValue()),
-      }),
-      columnHelper.accessor("customerName", {
-        header: "Customer Name",
-      }),
-      columnHelper.accessor("orderNo", {
-        header: "Order No",
-      }),
-      columnHelper.accessor("supplier", {
-        header: "Supplier",
-      }),
-      columnHelper.accessor("location", {
-        header: "Location",
-      }),
-      columnHelper.accessor("totalTax", {
-        header: "Total tax",
-        cell: (info) => formatCurrency(info.getValue()),
-      }),
-      columnHelper.accessor("totalAmount", {
-        header: "Total Amount",
-        cell: (info) => formatCurrency(info.getValue()),
-      }),
-      columnHelper.accessor("status", {
-        header: "Status",
-        cell: (info) => {
-          const status = info.getValue();
-          return (
-            <div className="flex items-center gap-2">
-              <span
-                className={`w-2 h-2 rounded-full ${getStatusDotColor(status)}`}
-              />
-              <span className="text-sm text-gray-700">{status}</span>
-            </div>
-          );
-        },
-      }),
-      {
+      });
+    }
+
+    // Add data columns from config
+    config.tableConfig.columns.forEach((column) => {
+      if (column.type === "date") {
+        cols.push(
+          columnHelper.accessor(column.key as keyof PurchaseOrder, {
+            header: column.label,
+            cell: (info) => formatDate(info.getValue() as string),
+          })
+        );
+      } else if (column.type === "currency") {
+        cols.push(
+          columnHelper.accessor(column.key as keyof PurchaseOrder, {
+            header: column.label,
+            cell: (info) => formatCurrency(info.getValue() as number),
+          })
+        );
+      } else if (column.type === "badge") {
+        cols.push(
+          columnHelper.accessor(column.key as keyof PurchaseOrder, {
+            header: column.label,
+            cell: (info) => {
+              const status = info.getValue() as string;
+              return (
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`w-2 h-2 rounded-full ${getStatusDotColor(
+                      status
+                    )}`}
+                  />
+                  <span className="text-sm text-gray-700">{status}</span>
+                </div>
+              );
+            },
+          })
+        );
+      } else {
+        cols.push(
+          columnHelper.accessor(column.key as keyof PurchaseOrder, {
+            header: column.label,
+          })
+        );
+      }
+    });
+
+    // Add actions column if enabled
+    if (config.tableConfig.actions.enabled) {
+      cols.push({
         id: "actions",
         header: "",
         cell: ({ row }: any) => (
           <div className="flex items-center gap-2">
-            <button
-              onClick={() =>
-                navigate(
-                  `/${isPurchase ? "purchase" : "sales"}/view/${
-                    row.original.id
-                  }`
-                )
+            {config.tableConfig.actions.items.map((action) => {
+              if (action.type === "dropdown") {
+                return (
+                  <DropdownMenu key={action.key}>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="p-1.5 text-gray-600 hover:bg-gray-50 rounded transition-colors"
+                        title={action.tooltip}
+                      >
+                        {ICONS[action.icon] &&
+                          React.createElement(ICONS[action.icon], {
+                            className: "w-4 h-4",
+                          })}
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      {action.items?.map((item) => (
+                        <DropdownMenuItem
+                          key={item.key}
+                          onClick={() => {
+                            if (item.action === "navigate") {
+                              navigate(
+                                `/${isPurchase ? "purchase" : "sales"}/${
+                                  item.key
+                                }/${row.original.id}`
+                              );
+                            } else if (item.action === "delete") {
+                              if (
+                                confirm(
+                                  "Are you sure you want to delete this order?"
+                                )
+                              ) {
+                                setPurchaseData((prev) =>
+                                  prev.filter(
+                                    (item) => item.id !== row.original.id
+                                  )
+                                );
+                              }
+                            }
+                          }}
+                        >
+                          {item.label}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                );
+              } else {
+                const colorClass =
+                  action.color === "blue"
+                    ? "text-blue-600 hover:bg-blue-50"
+                    : action.color === "green"
+                    ? "text-green-600 hover:bg-green-50"
+                    : action.color === "red"
+                    ? "text-red-600 hover:bg-red-50"
+                    : "text-gray-600 hover:bg-gray-50";
+
+                return (
+                  <button
+                    key={action.key}
+                    onClick={() => {
+                      if (action.action === "navigate") {
+                        navigate(
+                          `/${isPurchase ? "purchase" : "sales"}/${
+                            action.key
+                          }/${row.original.id}`
+                        );
+                      } else if (action.action === "delete") {
+                        if (
+                          !action.confirm?.enabled ||
+                          confirm(action.confirm.message || "Are you sure?")
+                        ) {
+                          setPurchaseData((prev) =>
+                            prev.filter((item) => item.id !== row.original.id)
+                          );
+                        }
+                      }
+                    }}
+                    className={`p-1.5 rounded transition-colors ${colorClass}`}
+                    title={action.tooltip}
+                  >
+                    {ICONS[action.icon] &&
+                      React.createElement(ICONS[action.icon], {
+                        className: "w-4 h-4",
+                      })}
+                  </button>
+                );
               }
-              className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
-              title="View"
-            >
-              <Eye className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() =>
-                navigate(
-                  `/${isPurchase ? "purchase" : "sales"}/edit/${
-                    row.original.id
-                  }`
-                )
-              }
-              className="p-1.5 text-green-600 hover:bg-green-50 rounded transition-colors"
-              title="Edit"
-            >
-              <Edit className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => {
-                if (confirm("Are you sure you want to delete this order?")) {
-                  setPurchaseData((prev) =>
-                    prev.filter((item) => item.id !== row.original.id)
-                  );
-                }
-              }}
-              className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
-              title="Delete"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className="p-1.5 text-gray-600 hover:bg-gray-50 rounded transition-colors"
-                  title="More options"
-                >
-                  <MoreVertical className="w-4 h-4" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                <DropdownMenuItem>Print</DropdownMenuItem>
-                <DropdownMenuItem>Export</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            })}
           </div>
         ),
-      },
-    ],
-    [navigate, isPurchase, selectedRows, purchaseData]
-  );
+      });
+    }
+
+    return cols;
+  }, [navigate, isPurchase, selectedRows, purchaseData, config]);
 
   // Filter data based on status filter
   const filteredData = useMemo(() => {
@@ -439,150 +394,99 @@ const ListTable = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">{pageTitle}</h1>
-          {listpageActions.toolbar.map((item) => {
+        <div className="flex items-center gap-2">
+          {config.headerActions.primary.map((item) => {
+            if (item.type === "dropdown") {
+              const Icon = ICONS[item.icon];
+              const style = item.style ?? {
+                backgroundColor: "var(--Primary-Color, hsla(152, 96%, 33%, 1))",
+                textColor: "white",
+              };
 
-  if (item.type === "dropdown") {
-    const Icon = ICONS[item.icon];
-    const style = item.style ?? {
-      backgroundColor: "var(--Primary-Color, hsla(152, 96%, 33%, 1))",
-      textColor: "white",
-    };
+              return (
+                <DropdownMenu key={item.id}>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg hover:opacity-90"
+                      style={{
+                        backgroundColor: style.backgroundColor,
+                        color: style.textColor,
+                      }}
+                    >
+                      <Icon className="w-4 h-4" />
+                      {item.label?.replace("{{pageTitle}}", pageTitle)}
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    {item.items?.map((menu) => (
+                      <DropdownMenuItem
+                      style={{ minWidth: "150px",backgroundColor: "white" }}
+                        key={menu.id}
+                        onClick={() => {
+                          if (menu.action === "navigate" && menu.route) {
+                            navigate(
+                              menu.route.replace(
+                                "{{module}}",
+                                isPurchase ? "purchase" : "sales"
+                              )
+                            );
+                          }
+                        }}
+                      >
+                        {menu.label.replace("{{pageTitle}}", pageTitle)}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              );
+            }
+            return null;
+          })}
 
-    return (
-      <DropdownMenu key={item.id}>
-        <DropdownMenuTrigger asChild>
-          <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg hover:opacity-90"
-            style={{
-              backgroundColor: style.backgroundColor,
-              color: style.textColor,
-            }}
-          >
-            <Icon className="w-4 h-4" />
-            {item.label?.replace("{{pageTitle}}", pageTitle)}
-            <ChevronDown className="w-4 h-4" />
-          </button>
-        </DropdownMenuTrigger>
-
-        <DropdownMenuContent>
-          {item.items?.map((menu) => (
-            <DropdownMenuItem
-              key={menu.id}
-              onClick={() => {
-                if (menu.action === "navigate") {
-                  navigate(
-                    menu.route.replace(
-                      "{{module}}",
-                      isPurchase ? "purchase" : "sales"
-                    )
-                  );
-                }
-              }}
-            >
-              {menu.label.replace("{{pageTitle}}", pageTitle)}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    );
-  }
-
-  // ICON BUTTONS
-  if (item.type === "icon-button") {
-    const Icon = ICONS[item.icon];
-
-    return (
-      <button
-        key={item.id}
-        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-      >
-        <Icon className="w-5 h-5 text-gray-600" />
-      </button>
-    );
-  }
-
-  return null;
-})}
-
-
+          {config.headerActions.secondary.map((item) => {
+            if (item.type === "icon-button") {
+              const Icon = ICONS[item.icon];
+              return (
+                <button
+                  key={item.id}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  title={item.tooltip}
+                >
+                  <Icon className="w-5 h-5 text-gray-600" />
+                </button>
+              );
+            }
+            return null;
+          })}
+        </div>
       </div>
 
       {/* Status Summary Cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <button
-          onClick={() =>
-            setStatusFilter(statusFilter === "Open" ? null : "Open")
-          }
-          className={`rounded-lg shadow-sm p-6 border-l-4 transition-all cursor-pointer hover:shadow-md ${
-            statusFilter === "Open"
-              ? `${getStatusCardColor("Open").bg} ${
-                  getStatusCardColor("Open").border
-                } ring-2 ${getStatusCardColor("Open").ring}`
-              : "bg-white border-blue-500"
-          }`}
-        >
-          <div className="text-sm font-medium text-gray-600">Open</div>
-          <div
-            className={`text-2xl font-bold mt-2 ${
-              getStatusCardColor("Open").text
+        {config.statusSummary.cards.map((card) => (
+          <button
+            key={card.key}
+            onClick={() =>
+              setStatusFilter(statusFilter === card.key ? null : card.key)
+            }
+            className={`rounded-lg shadow-sm p-6 border-l-4 transition-all cursor-pointer hover:shadow-md ${
+              statusFilter === card.key
+                ? `${card.color.bg} ${card.color.border} ring-2 ${card.color.ring}`
+                : `bg-white ${card.color.border}`
             }`}
           >
-            {statusStats.open.count} Open
-          </div>
-          <div className="text-sm font-semibold text-gray-700 mt-2">
-            {formatCurrency(statusStats.open.total)}
-          </div>
-        </button>
-
-        <button
-          onClick={() =>
-            setStatusFilter(statusFilter === "In Process" ? null : "In Process")
-          }
-          className={`rounded-lg shadow-sm p-6 border-l-4 transition-all cursor-pointer hover:shadow-md ${
-            statusFilter === "In Process"
-              ? `${getStatusCardColor("In Process").bg} ${
-                  getStatusCardColor("In Process").border
-                } ring-2 ${getStatusCardColor("In Process").ring}`
-              : "bg-white border-yellow-500"
-          }`}
-        >
-          <div className="text-sm font-medium text-gray-600">In Process</div>
-          <div
-            className={`text-2xl font-bold mt-2 ${
-              getStatusCardColor("In Process").text
-            }`}
-          >
-            {statusStats.inProcess.count} In Process
-          </div>
-          <div className="text-sm font-semibold text-gray-700 mt-2">
-            {formatCurrency(statusStats.inProcess.total)}
-          </div>
-        </button>
-
-        <button
-          onClick={() =>
-            setStatusFilter(statusFilter === "Completed" ? null : "Completed")
-          }
-          className={`rounded-lg shadow-sm p-6 border-l-4 transition-all cursor-pointer hover:shadow-md ${
-            statusFilter === "Completed"
-              ? `${getStatusCardColor("Completed").bg} ${
-                  getStatusCardColor("Completed").border
-                } ring-2 ${getStatusCardColor("Completed").ring}`
-              : "bg-white border-green-500"
-          }`}
-        >
-          <div className="text-sm font-medium text-gray-600">Completed</div>
-          <div
-            className={`text-2xl font-bold mt-2 ${
-              getStatusCardColor("Completed").text
-            }`}
-          >
-            {statusStats.completed.count} Completed
-          </div>
-          <div className="text-sm font-semibold text-gray-700 mt-2">
-            {formatCurrency(statusStats.completed.total)}
-          </div>
-        </button>
+            <div className="text-sm font-medium text-gray-600">
+              {card.label}
+            </div>
+            <div className={`text-2xl font-bold mt-2 ${card.color.text}`}>
+              {statusStats[card.key]?.count || 0} {card.label}
+            </div>
+            <div className="text-sm font-semibold text-gray-700 mt-2">
+              {formatCurrency(statusStats[card.key]?.total || 0)}
+            </div>
+          </button>
+        ))}
       </div>
 
       <div className="bg-white rounded-lg shadow">
@@ -593,9 +497,11 @@ const ListTable = () => {
               <div className="flex items-center gap-2">
                 <List className="w-5 h-5 text-gray-600" />
                 <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option>List for Sim</option>
-                  <option>All Records</option>
-                  <option>Recent Orders</option>
+                  {config.filters.quickFilters[0].options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
               <button
@@ -647,7 +553,7 @@ const ListTable = () => {
                 type="text"
                 value={globalFilter ?? ""}
                 onChange={(e) => setGlobalFilter(e.target.value)}
-                placeholder="Search orders..."
+                placeholder={config.filters.globalSearch.placeholder}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2"
                 style={
                   {
@@ -720,7 +626,7 @@ const ListTable = () => {
                       colSpan={columns.length}
                       className="px-4 py-8 text-center text-gray-500"
                     >
-                      No orders found
+                      {config.emptyState.table.message}
                     </td>
                   </tr>
                 )}
@@ -731,338 +637,122 @@ const ListTable = () => {
           /* Kanban View */
           <div className="p-6">
             <div className="grid grid-cols-3 gap-6">
-              {/* Open Column */}
-              <div className="flex flex-col">
-                <div className="mb-4 pb-3 border-b-2 border-blue-500">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-700">
-                      Open
-                    </span>
-                    <span className="text-xs text-gray-500 bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-                      {kanbanData.open.length}
-                    </span>
+              {config.kanbanConfig.columns.map((column) => (
+                <div key={column.key} className="flex flex-col">
+                  <div className={`mb-4 pb-3 border-b-2 ${column.borderColor}`}>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-gray-700">
+                        {column.label}
+                      </span>
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded-full ${column.badgeColor}`}
+                      >
+                        {kanbanData[column.key]?.length || 0}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    {kanbanData[column.key]?.map((item) => (
+                      <div
+                        key={item.id}
+                        className="bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow cursor-pointer"
+                        onClick={() =>
+                          navigate(
+                            `/${isPurchase ? "purchase" : "sales"}/view/${
+                              item.id
+                            }`
+                          )
+                        }
+                      >
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`w-10 h-10 rounded-full ${column.avatarColor} flex items-center justify-center font-semibold text-sm`}
+                            >
+                              {getInitials(item.customerName)}
+                            </div>
+                            <div>
+                              <div className="font-medium text-gray-900">
+                                {item.customerName}
+                              </div>
+                              <div className="flex items-center gap-1 mt-1">
+                                <span
+                                  className={`w-2 h-2 rounded-full ${getStatusDotColor(
+                                    item.status
+                                  )}`}
+                                />
+                                <span className="text-xs text-gray-600">
+                                  • {item.status}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <button
+                                className="p-1 hover:bg-gray-100 rounded transition-colors"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <MoreVertical className="w-4 h-4 text-gray-500" />
+                              </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              {config.kanbanConfig.card.actions.items.map(
+                                (action) => (
+                                  <DropdownMenuItem
+                                    key={action.key}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (action.action === "navigate") {
+                                        navigate(
+                                          `/${
+                                            isPurchase ? "purchase" : "sales"
+                                          }/${action.key}/${item.id}`
+                                        );
+                                      } else if (action.action === "delete") {
+                                        if (
+                                          !action.confirm ||
+                                          confirm(
+                                            "Are you sure you want to delete this order?"
+                                          )
+                                        ) {
+                                          setPurchaseData((prev) =>
+                                            prev.filter((i) => i.id !== item.id)
+                                          );
+                                        }
+                                      }
+                                    }}
+                                  >
+                                    {action.label}
+                                  </DropdownMenuItem>
+                                )
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                        <div className="space-y-2 text-sm text-gray-600">
+                          {config.kanbanConfig.card.fields.map((field) => (
+                            <div key={field.key}>
+                              {field.label}:{" "}
+                              {field.type === "currency"
+                                ? formatCurrency(
+                                    item[
+                                      field.key as keyof PurchaseOrder
+                                    ] as number
+                                  )
+                                : item[field.key as keyof PurchaseOrder]}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )) || (
+                      <div className="text-center text-gray-400 text-sm py-8">
+                        {config.emptyState.kanban.message}
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="space-y-4">
-                  {kanbanData.open.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-lg shadow-sm  p-4 hover:shadow-md transition-shadow cursor-pointer"
-                      onClick={() =>
-                        navigate(
-                          `/${isPurchase ? "purchase" : "sales"}/view/${
-                            item.id
-                          }`
-                        )
-                      }
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-semibold text-sm">
-                            {getInitials(item.customerName)}
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900">
-                              {item.customerName}
-                            </div>
-                            <div className="flex items-center gap-1 mt-1">
-                              <span
-                                className={`w-2 h-2 rounded-full ${getStatusDotColor(
-                                  item.status
-                                )}`}
-                              />
-                              <span className="text-xs text-gray-600">
-                                • Open
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <button
-                              className="p-1 hover:bg-gray-100 rounded transition-colors"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <MoreVertical className="w-4 h-4 text-gray-500" />
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(
-                                  `/${isPurchase ? "purchase" : "sales"}/view/${
-                                    item.id
-                                  }`
-                                );
-                              }}
-                            >
-                              View
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(
-                                  `/${isPurchase ? "purchase" : "sales"}/edit/${
-                                    item.id
-                                  }`
-                                );
-                              }}
-                            >
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setPurchaseData((prev) =>
-                                  prev.filter((i) => i.id !== item.id)
-                                );
-                              }}
-                            >
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                      <div className="space-y-2 text-sm text-gray-600">
-                        <div>Date: {item.orderDate}</div>
-                        <div>Supplier: {item.supplier}</div>
-                        <div>Order No.: {item.orderNo}</div>
-                        <div className="font-semibold text-gray-900 mt-2">
-                          Value: {formatCurrency(item.totalAmount)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {kanbanData.open.length === 0 && (
-                    <div className="text-center text-gray-400 text-sm py-8">
-                      No items
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* In Process Column */}
-              <div className="flex flex-col">
-                <div className="mb-4 pb-3 border-b-2 border-orange-500">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-700">
-                      In Process
-                    </span>
-                    <span className="text-xs text-gray-500 bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">
-                      {kanbanData.inProcess.length}
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  {kanbanData.inProcess.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-lg shadow-sm  p-4 hover:shadow-md transition-shadow cursor-pointer"
-                      onClick={() =>
-                        navigate(
-                          `/${isPurchase ? "purchase" : "sales"}/view/${
-                            item.id
-                          }`
-                        )
-                      }
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 font-semibold text-sm">
-                            {getInitials(item.customerName)}
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900">
-                              {item.customerName}
-                            </div>
-                            <div className="flex items-center gap-1 mt-1">
-                              <span
-                                className={`w-2 h-2 rounded-full ${getStatusDotColor(
-                                  item.status
-                                )}`}
-                              />
-                              <span className="text-xs text-gray-600">
-                                • In Process
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <button
-                              className="p-1 hover:bg-gray-100 rounded transition-colors"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <MoreVertical className="w-4 h-4 text-gray-500" />
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(
-                                  `/${isPurchase ? "purchase" : "sales"}/view/${
-                                    item.id
-                                  }`
-                                );
-                              }}
-                            >
-                              View
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(
-                                  `/${isPurchase ? "purchase" : "sales"}/edit/${
-                                    item.id
-                                  }`
-                                );
-                              }}
-                            >
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setPurchaseData((prev) =>
-                                  prev.filter((i) => i.id !== item.id)
-                                );
-                              }}
-                            >
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                      <div className="space-y-2 text-sm text-gray-600">
-                        <div>Date: {item.orderDate}</div>
-                        <div>Supplier: {item.supplier}</div>
-                        <div>Order No.: {item.orderNo}</div>
-                        <div className="font-semibold text-gray-900 mt-2">
-                          Value: {formatCurrency(item.totalAmount)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {kanbanData.inProcess.length === 0 && (
-                    <div className="text-center text-gray-400 text-sm py-8">
-                      No items
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Completed Column */}
-              <div className="flex flex-col">
-                <div className="mb-4 pb-3 border-b-2 border-green-500">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-700">
-                      Completed
-                    </span>
-                    <span className="text-xs text-gray-500 bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                      {kanbanData.completed.length}
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  {kanbanData.completed.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-lg shadow-sm  p-4 hover:shadow-md transition-shadow cursor-pointer"
-                      onClick={() =>
-                        navigate(
-                          `/${isPurchase ? "purchase" : "sales"}/view/${
-                            item.id
-                          }`
-                        )
-                      }
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-semibold text-sm">
-                            {getInitials(item.customerName)}
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900">
-                              {item.customerName}
-                            </div>
-                            <div className="flex items-center gap-1 mt-1">
-                              <span
-                                className={`w-2 h-2 rounded-full ${getStatusDotColor(
-                                  item.status
-                                )}`}
-                              />
-                              <span className="text-xs text-gray-600">
-                                • Completed
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <button
-                              className="p-1 hover:bg-gray-100 rounded transition-colors"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <MoreVertical className="w-4 h-4 text-gray-500" />
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(
-                                  `/${isPurchase ? "purchase" : "sales"}/view/${
-                                    item.id
-                                  }`
-                                );
-                              }}
-                            >
-                              View
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(
-                                  `/${isPurchase ? "purchase" : "sales"}/edit/${
-                                    item.id
-                                  }`
-                                );
-                              }}
-                            >
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setPurchaseData((prev) =>
-                                  prev.filter((i) => i.id !== item.id)
-                                );
-                              }}
-                            >
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                      <div className="space-y-2 text-sm text-gray-600">
-                        <div>Date: {item.orderDate}</div>
-                        <div>Supplier: {item.supplier}</div>
-                        <div>Order No.: {item.orderNo}</div>
-                        <div className="font-semibold text-gray-900 mt-2">
-                          Value: {formatCurrency(item.totalAmount)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {kanbanData.completed.length === 0 && (
-                    <div className="text-center text-gray-400 text-sm py-8">
-                      No items
-                    </div>
-                  )}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         )}

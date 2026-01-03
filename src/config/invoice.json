@@ -1,0 +1,82 @@
+{
+  "model": "invoice",
+  "label": "Invoice",
+  "views": {
+    "list": {
+      "component": "ListView",
+      "permissions": ["invoice.read"],
+      "api": "/api/invoice",
+      "columns": [
+        { "key": "invoice_no", "label": "Invoice No" },
+        { "key": "customer", "label": "Customer" },
+        { "key": "invoice_date", "label": "Invoice Date" },
+        { "key": "total", "label": "Total Amount" },
+        { "key": "status", "label": "Status" }
+      ],
+      "actions": ["create", "view", "edit"]
+    },
+
+    "create": {
+      "component": "FormView",
+      "permissions": ["invoice.create"],
+      "api": "/api/invoice",
+      "title": "Create Invoice",
+      "fields": [
+        {
+          "name": "customer",
+          "label": "Customer",
+          "type": "select",
+          "required": true,
+          "optionsApi": "/api/customers"
+        },
+        {
+          "name": "invoice_date",
+          "label": "Invoice Date",
+          "type": "date",
+          "required": true
+        },
+        {
+          "name": "due_date",
+          "label": "Due Date",
+          "type": "date"
+        },
+        {
+          "name": "items",
+          "label": "Invoice Items",
+          "type": "line_items",
+          "columns": [
+            { "name": "product", "type": "select", "optionsApi": "/api/products" },
+            { "name": "qty", "type": "number" },
+            { "name": "price", "type": "number" },
+            { "name": "subtotal", "type": "calculated", "formula": "qty * price" }
+          ]
+        },
+        {
+          "name": "total",
+          "label": "Total Amount",
+          "type": "calculated",
+          "formula": "sum(items.subtotal)"
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "select",
+          "default": "Draft",
+          "options": ["Draft", "Posted", "Paid"]
+        }
+      ]
+    },
+
+    "view": {
+      "component": "DetailView",
+      "permissions": ["invoice.read"],
+      "api": "/api/invoice/:id"
+    },
+
+    "edit": {
+      "component": "FormView",
+      "permissions": ["invoice.update"],
+      "api": "/api/invoice/:id"
+    }
+  }
+}

@@ -79,7 +79,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(fetchedUser);
       try {
         localStorage.setItem("userData", JSON.stringify(fetchedUser));
-      } catch {}
+      } catch {
+        console.warn("Failed to persist user data to localStorage");
+      }
     }
   }, [fetchedUser]);
 

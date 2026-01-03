@@ -1,0 +1,50 @@
+{
+  "model": "purchase_order",
+  "label": "Purchase Order",
+  "views": {
+    "list": {
+      "component": "ListView",
+      "permissions": ["purchase.read"],
+      "api": "/api/purchase",
+      "columns": [
+        { "key": "po_number", "label": "PO Number" },
+        { "key": "vendor", "label": "Vendor" },
+        { "key": "total", "label": "Total Amount" },
+        { "key": "status", "label": "Status" }
+      ],
+      "actions": ["create", "view", "edit"]
+    },
+    "create": {
+      "component": "FormView",
+      "permissions": ["purchase.create"],
+      "api": "/api/purchase",
+      "fields": [
+        { "name": "vendor", "type": "select", "required": true, "options": [] },
+        { "name": "po_date", "type": "date" },
+        { "name": "total", "type": "number" }
+      ]
+    },
+    "view": {
+      "component": "DetailView",
+      "permissions": ["purchase.read"],
+      "api": "/api/purchase/:id",
+      "fields": [
+        { "name": "po_number", "label": "PO Number" },
+        { "name": "vendor", "label": "Vendor" },
+        { "name": "po_date", "label": "PO Date" },
+        { "name": "total", "label": "Total Amount" },
+        { "name": "status", "label": "Status" }
+      ]
+    },
+    "edit": {
+      "component": "FormView",
+      "permissions": ["purchase.update"],
+      "api": "/api/purchase/:id",
+      "fields": [
+        { "name": "vendor", "type": "select", "required": true, "options": [] },
+        { "name": "po_date", "type": "date" },
+        { "name": "total", "type": "number" }
+      ]
+    }
+  }
+}

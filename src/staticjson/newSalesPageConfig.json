@@ -18,7 +18,6 @@
       "icon": false,
       "searchable": false,
       "disabled": false,
-
       "validation": {
         "minLength": 2,
         "maxLength": 100
@@ -55,7 +54,6 @@
       "type": "select",
       "required": true,
       "defaultValue": "Pending",
-
       "icon": false,
       "searchable": false,
       "disabled": false,

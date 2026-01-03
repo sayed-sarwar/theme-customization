@@ -1,0 +1,38 @@
+{
+  "model": "sales_order",
+  "label": "Sales Order",
+  "views": {
+    "list": {
+      "component": "ListView",
+      "permissions": ["sales.read"],
+      "api": "/api/sales",
+      "columns": [
+        { "key": "order_no", "label": "Order No" },
+        { "key": "customer", "label": "Customer" },
+        { "key": "total", "label": "Total" },
+        { "key": "status", "label": "Status" }
+      ],
+      "actions": ["create", "view", "edit"]
+    },
+    "create": {
+      "component": "FormView",
+      "permissions": ["sales.create"],
+      "api": "/api/sales",
+      "fields": [
+        { "name": "customer", "type": "select", "required": true },
+        { "name": "order_date", "type": "date" },
+        { "name": "total", "type": "number" }
+      ]
+    },
+    "view": {
+      "component": "DetailView",
+      "permissions": ["sales.read"],
+      "api": "/api/sales/:id"
+    },
+    "edit": {
+      "component": "FormView",
+      "permissions": ["sales.update"],
+      "api": "/api/sales/:id"
+    }
+  }
+}

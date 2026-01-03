@@ -1,0 +1,438 @@
+{
+  "pageConfig": {
+    "title": "Chart of Account",
+    "description": "Manage your company's chart of accounts and financial structure",
+    "defaultTab": "Setup",
+    "displaytype": "listform"
+  },
+  "tabs": [
+    {
+      "id": "setup",
+      "label": "Setup",
+      "active": true
+    },
+    {
+      "id": "multi-company",
+      "label": "Multi-Company",
+      "active": false
+    },
+    {
+      "id": "multi-currency",
+      "label": "Multi Currency",
+      "active": false
+    }
+  ],
+  "headerActions": {
+    "addNew": {
+      "label": "Add New",
+      "type": "dropdown",
+      "color": "green",
+      "options": [
+        {
+          "value": "add_account",
+          "label": "Add Account",
+          "action": "create_account"
+        },
+        {
+          "value": "import_accounts",
+          "label": "Import Accounts",
+          "action": "import_data"
+        }
+      ]
+    },
+    "moreOptions": {
+      "type": "button",
+      "icon": "more-horizontal",
+      "options": [
+        {
+          "value": "export",
+          "label": "Export Data"
+        },
+        {
+          "value": "settings",
+          "label": "Account Settings"
+        },
+        {
+          "value": "backup",
+          "label": "Backup Data"
+        }
+      ]
+    },
+    "filter": {
+      "type": "button",
+      "icon": "filter",
+      "label": "Filter"
+    }
+  },
+  "companies": [
+    {
+      "id": "master-builder",
+      "name": "Master Builder",
+      "editable": true,
+      "showMore": true,
+      "sections": [
+        {
+          "title": "Main Accounts",
+          "accounts": [
+            {
+              "accountCode": "102344131",
+              "accountName": "Payable",
+              "accountType": "Asset",
+              "subAccount": "Expenses",
+              "status": "Paid",
+              "tooltip": true,
+              "tooltipText": "Unique identifier for the account. Must be 8-12 digits.",
+              "description": "Accounts payable are essential for managing your finances and track of your transactions.",
+              "currency": "USD",
+              "costCenter": "HR"
+            },
+            {
+              "accountCode": "102344132",
+              "accountName": "Receivable",
+              "accountType": "Asset",
+              "tooltip": true,
+              "tooltipText": "Unique identifier for the account. Must be 8-12 digits.",
+              "subAccount": "Income",
+              "status": "Active",
+              "description": "Accounts receivable represents money owed to the company by customers.",
+              "currency": "USD",
+              "costCenter": "Finance"
+            },
+            {
+              "accountCode": "102344133",
+              "accountName": "Cash",
+              "accountType": "Asset",
+              "subAccount": "Current Assets",
+              "tooltip": true,
+              "tooltipText": "Unique identifier for the account. Must be 8-12 digits.",
+              "status": "Active",
+              "description": "Cash and cash equivalents including bank accounts and petty cash.",
+              "currency": "USD",
+              "costCenter": "Finance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sim-solution",
+      "name": "Sim Solution",
+      "editable": true,
+      "showMore": true,
+      "sections": [
+        {
+          "type": "accounts",
+          "title": "Accounts Payable",
+          "accounts": [
+            {
+              "accountCode": "102344131",
+              "accountName": "Payable",
+              "accountType": "Asset",
+              "subAccount": "Expenses",
+              "status": "Paid",
+              "description": "Accounts payable are essential for managing your finances and track of your transactions.",
+              "tooltip": true,
+              "tooltipText": "Unique identifier for the account. Must be 8-12 digits."
+            },
+            {
+              "accountCode": "102344134",
+              "accountName": "Trade Payables",
+              "accountType": "Liability",
+              "subAccount": "Current Liabilities",
+              "status": "Pending",
+              "description": "Outstanding amounts owed to suppliers and vendors for goods and services.",
+              "tooltip": true,
+              "tooltipText": "Unique identifier for the account. Must be 8-12 digits."
+            },
+            {
+              "accountCode": "102344135",
+              "accountName": "Accrued Expenses",
+              "accountType": "Liability",
+              "subAccount": "Current Liabilities",
+              "status": "Active",
+              "description": "Expenses that have been incurred but not yet paid or recorded.",
+              "tooltip": true,
+              "tooltipText": "Unique identifier for the account. Must be 8-12 digits."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accountFields": {
+    "accountCode": {
+      "label": "Account Code",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter account code",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "validation": {
+        "pattern": "^[0-9]{8,12}$",
+        "message": "Account code must be 8-12 digits",
+        "minLength": 8,
+        "maxLength": 12
+      }
+    },
+    "accountName": {
+      "label": "Account Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter account name",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "validation": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    "accountType": {
+      "label": "Account Type",
+      "type": "select",
+      "required": true,
+      "placeholder": "Select account type",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "options": [
+        { "value": "asset", "label": "Asset" },
+        { "value": "liability", "label": "Liability" },
+        { "value": "equity", "label": "Equity" },
+        { "value": "revenue", "label": "Revenue" },
+        { "value": "expense", "label": "Expense" }
+      ]
+    },
+    "subAccount": {
+      "label": "Sub Account",
+      "type": "select",
+      "required": false,
+      "placeholder": "Select sub account",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "options": [
+        { "value": "expenses", "label": "Expenses" },
+        { "value": "income", "label": "Income" },
+        { "value": "current_assets", "label": "Current Assets" },
+        { "value": "fixed_assets", "label": "Fixed Assets" },
+        { "value": "current_liabilities", "label": "Current Liabilities" },
+        { "value": "long_term_liabilities", "label": "Long Term Liabilities" }
+      ]
+    },
+    "status": {
+      "label": "Status",
+      "type": "select",
+      "required": true,
+      "defaultValue": "active",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-1",
+      "options": [
+        { "value": "active", "label": "Active", "color": "blue" },
+        { "value": "paid", "label": "Paid", "color": "green" },
+        { "value": "pending", "label": "Pending", "color": "yellow" },
+        { "value": "inactive", "label": "Inactive", "color": "gray" }
+      ]
+    },
+    "description": {
+      "label": "Description",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Enter account description (optional)",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-3",
+      "rows": 3,
+      "validation": {
+        "maxLength": 500
+      }
+    },
+    "currency": {
+      "label": "Currency",
+      "type": "select",
+      "required": false,
+      "placeholder": "Select currency",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "options": [
+        { "value": "USD", "label": "USD - US Dollar" },
+        { "value": "EUR", "label": "EUR - Euro" },
+        { "value": "GBP", "label": "GBP - British Pound" },
+        { "value": "BDT", "label": "BDT - Bangladeshi Taka" },
+        { "value": "INR", "label": "INR - Indian Rupee" }
+      ]
+    },
+    "costCenter": {
+      "label": "Cost Center",
+      "type": "select",
+      "required": false,
+      "placeholder": "Select cost center",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "options": [
+        { "value": "hr", "label": "HR" },
+        { "value": "it", "label": "IT" },
+        { "value": "finance", "label": "Finance" },
+        { "value": "operations", "label": "Operations" },
+        { "value": "marketing", "label": "Marketing" },
+        { "value": "sales", "label": "Sales" }
+      ]
+    },
+    "balance": {
+      "label": "Balance",
+      "type": "number",
+      "required": false,
+      "placeholder": "0.00",
+
+      "edit": true,
+      "icon": false,
+      "searchable": false,
+      "disabled": false,
+      "width": "col-span-2",
+      "validation": {
+        "min": -999999999,
+        "max": 999999999
+      }
+    },
+    "parentAccount": {
+      "label": "Parent Account",
+      "type": "select",
+      "required": false,
+      "placeholder": "Select parent account",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "options": []
+    },
+    "taxCode": {
+      "label": "Tax Code",
+      "type": "select",
+      "required": false,
+      "placeholder": "Select tax code",
+
+      "edit": true,
+      "icon": false,
+      "searchable": true,
+      "disabled": false,
+      "width": "col-span-2",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "vat_15", "label": "VAT 15%" },
+        { "value": "gst_18", "label": "GST 18%" },
+        { "value": "sales_tax", "label": "Sales Tax" }
+      ]
+    },
+    "isActive": {
+      "label": "Is Active",
+      "type": "checkbox",
+      "required": false,
+      "defaultValue": true,
+
+      "edit": true,
+      "icon": false,
+      "searchable": false,
+      "disabled": false,
+      "width": "col-span-1"
+    }
+  },
+  "statusColors": {
+    "active": {
+      "bg": "bg-blue-100",
+      "text": "text-blue-800",
+      "dot": "text-blue-600"
+    },
+    "paid": {
+      "bg": "bg-green-100",
+      "text": "text-green-800",
+      "dot": "text-green-600"
+    },
+    "pending": {
+      "bg": "bg-yellow-100",
+      "text": "text-yellow-800",
+      "dot": "text-yellow-600"
+    },
+    "inactive": {
+      "bg": "bg-gray-100",
+      "text": "text-gray-800",
+      "dot": "text-gray-600"
+    }
+  },
+  "gridLayout": {
+    "columns": 12,
+    "headers": [
+      { "key": "accountCode", "span": 2 },
+      { "key": "accountName", "span": 2 },
+      { "key": "accountType", "span": 2 },
+      { "key": "subAccount", "span": 2 },
+      { "key": "status", "span": 1 },
+      { "key": "description", "span": 3 }
+    ],
+    "additionalFields": [
+      { "key": "currency", "span": 2 },
+      { "key": "costCenter", "span": 2 }
+    ]
+  },
+  "permissions": {
+    "canCreate": true,
+    "canEdit": true,
+    "canDelete": true,
+    "canExport": true,
+    "canImport": true
+  },
+  "validation": {
+    "required": ["accountCode", "accountName", "accountType", "status"],
+    "uniqueFields": ["accountCode"]
+  },
+  "notifications": {
+    "accountCreated": "Account created successfully!",
+    "accountUpdated": "Account updated successfully!",
+    "accountDeleted": "Account deleted successfully!",
+    "importSuccess": "Accounts imported successfully!",
+    "exportSuccess": "Accounts exported successfully!",
+    "validationError": "Please check all required fields and try again.",
+    "duplicateAccount": "Account code already exists. Please use a different code."
+  },
+  "defaultValues": {
+    "status": "active",
+    "currency": "USD",
+    "accountType": "asset"
+  },
+  "features": {
+    "multiCompany": true,
+    "multiCurrency": true,
+    "bulkOperations": true,
+    "exportImport": true,
+    "auditTrail": true
+  }
+}
