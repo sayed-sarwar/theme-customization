@@ -14,11 +14,14 @@
 
 import salesOrderConfig from "@/config/sales_order.json";
 import purchaseOrderConfig from "@/config/purchase_order.json";
-// import purchaseOrderConfig from "@/config/purchase_order.json";
+import exampleMultiViewConfig from "@/config/example_multi_view.json";
+import newSalesPageConfig from "@/config/newSalesPageConfig.json";
 
 const CONFIG_MAP: Record<string, any> = {
   sales_order: salesOrderConfig,
-  purchage_order: purchaseOrderConfig
+  purchase_order: purchaseOrderConfig, // Fixed typo
+  product: exampleMultiViewConfig,
+  new_sales: newSalesPageConfig,
 };
 
 export const usePageConfig = (model: string) => {

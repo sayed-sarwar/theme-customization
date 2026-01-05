@@ -1,0 +1,174 @@
+{
+  "model": "product",
+  "label": "Product Management",
+  "description": "Complete product management with multiple views",
+  "views": {
+    "list": {
+      "component": "ListView",
+      "title": "Product Catalog",
+      "permissions": ["product.read"],
+      "api": "/api/products",
+      "columns": [
+        { "key": "id", "label": "ID" },
+        { "key": "name", "label": "Product Name" },
+        { "key": "category", "label": "Category" },
+        { "key": "price", "label": "Price" },
+        { "key": "stock", "label": "Stock" },
+        { "key": "status", "label": "Status" }
+      ],
+      "actions": ["create", "view", "edit", "delete"],
+      "filters": [
+        {
+          "key": "category",
+          "type": "select",
+          "options": ["Electronics", "Clothing", "Books"]
+        },
+        { "key": "status", "type": "select", "options": ["Active", "Inactive"] }
+      ]
+    },
+    "create": {
+      "component": "FormView",
+      "title": "Add New Product",
+      "permissions": ["product.create"],
+      "api": "/api/products",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Product Name",
+          "type": "text",
+          "required": true,
+          "placeholder": "Enter product name"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea",
+          "placeholder": "Product description"
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "options": ["Electronics", "Clothing", "Books", "Home & Garden"]
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "number",
+          "required": true,
+          "min": 0,
+          "step": 0.01
+        },
+        {
+          "name": "stock",
+          "label": "Stock Quantity",
+          "type": "number",
+          "required": true,
+          "min": 0
+        },
+        {
+          "name": "sku",
+          "label": "SKU",
+          "type": "text",
+          "placeholder": "Product SKU"
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "select",
+          "options": ["Active", "Inactive"],
+          "default": "Active"
+        }
+      ]
+    },
+    "view": {
+      "component": "DetailView",
+      "title": "Product Details",
+      "permissions": ["product.read"],
+      "api": "/api/products/:id",
+      "sections": [
+        {
+          "title": "Basic Information",
+          "fields": ["name", "description", "category", "sku"]
+        },
+        {
+          "title": "Pricing & Inventory",
+          "fields": ["price", "stock", "status"]
+        },
+        {
+          "title": "Metadata",
+          "fields": ["created_at", "updated_at", "created_by"]
+        }
+      ]
+    },
+    "edit": {
+      "component": "FormView",
+      "title": "Edit Product",
+      "permissions": ["product.update"],
+      "api": "/api/products/:id",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Product Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea"
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "options": ["Electronics", "Clothing", "Books", "Home & Garden"]
+        },
+        {
+          "name": "price",
+          "label": "Price",
+          "type": "number",
+          "required": true,
+          "min": 0,
+          "step": 0.01
+        },
+        {
+          "name": "stock",
+          "label": "Stock Quantity",
+          "type": "number",
+          "required": true,
+          "min": 0
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "select",
+          "options": ["Active", "Inactive"]
+        }
+      ]
+    },
+    "analytics": {
+      "component": "DetailView",
+      "title": "Product Analytics",
+      "permissions": ["product.analytics"],
+      "api": "/api/products/:id/analytics",
+      "sections": [
+        {
+          "title": "Sales Performance",
+          "fields": ["total_sales", "units_sold", "revenue"]
+        },
+        {
+          "title": "Inventory Metrics",
+          "fields": ["turnover_rate", "days_in_stock", "reorder_point"]
+        }
+      ]
+    }
+  },
+  "defaultView": "list",
+  "navigation": {
+    "breadcrumbs": true,
+    "backButton": true
+  }
+}

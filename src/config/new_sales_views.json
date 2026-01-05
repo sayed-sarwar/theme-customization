@@ -1,0 +1,40 @@
+{
+  "model": "new_sales",
+  "label": "Sales Management",
+  "description": "Complete sales management with advanced form",
+  "views": {
+    "list": {
+      "component": "ListView",
+      "title": "Sales Orders",
+      "permissions": ["sales.read"],
+      "api": "/api/sales",
+      "columns": [
+        { "key": "id", "label": "Order ID" },
+        { "key": "customer", "label": "Customer" },
+        { "key": "amount", "label": "Amount" },
+        { "key": "date", "label": "Date" },
+        { "key": "status", "label": "Status" }
+      ],
+      "actions": ["create", "view", "edit"]
+    },
+    "create": {
+      "component": "SalesFormView",
+      "title": "Create New Sale",
+      "permissions": ["sales.create"],
+      "api": "/api/sales"
+    },
+    "edit": {
+      "component": "SalesFormView",
+      "title": "Edit Sale",
+      "permissions": ["sales.update"],
+      "api": "/api/sales/:id"
+    },
+    "view": {
+      "component": "DetailView",
+      "title": "Sale Details",
+      "permissions": ["sales.read"],
+      "api": "/api/sales/:id"
+    }
+  },
+  "defaultView": "list"
+}

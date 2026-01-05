@@ -11,6 +11,7 @@ import menuData from "@/staticjson/data1.json";
 // import Purchase from "@/pages/purchase";
 // import ViewOrderPage from "@/pages/ViewOrderPage";
 import DynamicPage from "@/pages/dynamicpage/dynamicpage";
+import MultiViewDemo from "@/pages/MultiViewDemo";
 import Page from "@/pages/page";
 
 const RoleBasedPages = () => {
@@ -34,11 +35,12 @@ const RoleBasedPages = () => {
 
   return (
     <Routes>
-      
       <Route path="chart-of-account" element={<Page />} />
       <Route path="accounts" element={<Page />} />
 
-  
+      {/* Multiple Views Demo */}
+      <Route path="demo/multi-view" element={<MultiViewDemo />} />
+
       {/* <Route path="sales" element={<SalesPage />} />
       <Route path="sales/new" element={<NewSalePage />} />
       <Route path="sales/list" element={<ListPage />} />
@@ -53,9 +55,12 @@ const RoleBasedPages = () => {
 
    
       <Route path="purchase" element={<Purchase />} /> */}
+
+      {/* Dynamic page routes - both with and without /app prefix */}
       <Route path="/app/:model/:view" element={<DynamicPage />} />
       <Route path="/app/:model/:view/:id" element={<DynamicPage />} />
-
+      <Route path=":model/:view" element={<DynamicPage />} />
+      <Route path=":model/:view/:id" element={<DynamicPage />} />
 
       {/* Dynamic routes from menu data */}
       {renderRoutes(menuData)}
