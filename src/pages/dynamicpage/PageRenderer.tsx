@@ -21,7 +21,6 @@ interface PageRendererProps {
 const PageRenderer = ({ config, id }: PageRendererProps) => {
   const Component = COMPONENT_MAP[config.component];
   if (!Component) return <div>Component not registered</div>;
-
   return <Component />;
 };
 
